@@ -94,6 +94,8 @@
                 <li>Photo be stored and displayed on View Profile screen</li>
                 <li>Add Student screen to be designed for Staff</li>
                 <li>Edit Student details to be added for Staff</li>
+                <li>Master data to be added for Department</li>
+                <li>Aadhaar Card to be added in TblStudent</li>
               </ul>
             </td>
             <td></td>

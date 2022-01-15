@@ -141,9 +141,7 @@
                 <?php echo $address;?>
               </td>
           </tr>
-      </table>
-
-      Click <a href='edit.php'>here</a> to edit the details.
+      </table>      
 <?php
   require_once 'inc/footer.php';
 ?>
