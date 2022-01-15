@@ -31,6 +31,20 @@
             </td>
             <td></td>
         </tr>
+        <tr>
+            <td>1.1</td>
+            <td>15 Jan 2022 Friday</td>
+            <td>
+              <ul>
+                <li>Database Connection established</li>
+                <li>DB Table Creation for TblUser, TblStudent</li>
+                <li>Sample Data inserted for the DB Tables</li>
+                <li>PHP Code modified to authenticate the user from the DB</li>
+                <li>View Profile for Student - shows the full details from DB.</li>
+              </ul>
+            </td>
+            <td></td>
+        </tr>
     </tbody>
 </table>
 
@@ -67,6 +81,19 @@
               <ul>
                 <li>15 Students sample profile data.</li>
                 <li>Hosting details in GoDaddy (username, password)</li>
+              </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>1.1</td>
+            <td>15 Jan 2022 Saturday</td>
+            <td>
+              <ul>
+                <li>Differentiate a registered user attempting with wrong creds Vs Unregistered User.</li>
+                <li>Photo be stored and displayed on View Profile screen</li>
+                <li>Add Student screen to be designed for Staff</li>
+                <li>Edit Student details to be added for Staff</li>
               </ul>
             </td>
             <td></td>

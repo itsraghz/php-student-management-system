@@ -25,6 +25,7 @@
 ### Staff
 
 * Login
+* Add Student
 * Add Attendance
 * Add Achievements
 * (?) View Profile - Should we need to show the profile of the staff?

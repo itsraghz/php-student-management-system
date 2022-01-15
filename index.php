@@ -3,9 +3,9 @@
 
   //check if the user has been already logged into the System
 
-  if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+  /*if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
     header('Location: home.php');
-  }
+  }*/
 ?>
       <div class="welcomeTxt">
         Welcome to the <b>Home Page</b> of the Student Management System (<b>SMS</b>).
@@ -34,7 +34,7 @@
                 <td>UserName &nbsp;&nbsp;&nbsp;</td>
                 <td>
                   <input type="text" name="userName" id="userName"
-                  value="912517114301" placeholder="User Name"
+                  value="S0001" placeholder="User Name"
                   required=true size=20/>
                 </td>
             </tr>
@@ -42,7 +42,7 @@
                 <td>Password &nbsp;&nbsp;&nbsp;</td>
                 <td>
                   <input type="password" name="password" id="password"
-                  value="912517114301" placeholder="Password"
+                  value="S0001" placeholder="Password"
                   required=true size=20/>
                 </td>
             </tr>

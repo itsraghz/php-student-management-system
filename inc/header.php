@@ -1,6 +1,8 @@
 <?php
   ob_start();
   @session_start();
+  require_once 'connection.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

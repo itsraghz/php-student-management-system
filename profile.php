@@ -1,5 +1,79 @@
 <?php
   require_once 'inc/header.php';
+
+  //echo "User Id in Session : " . $_SESSION['user'] . "<br/>";
+
+  $studentDetails = getDetails($_SESSION['user']);
+
+  $userName = $studentDetails['userName'];
+  $regnNo = $studentDetails['regnNo'];
+  $dob = $studentDetails['dob'];
+  $gender = $studentDetails['gender'];
+  $course = $studentDetails['course'];
+  $fathersName = $studentDetails['fathersName'];
+  $mothersName = $studentDetails['mothersName'];
+  $email = $studentDetails['email'];
+  $mobile = $studentDetails['mobile'];
+  $address = $studentDetails['address'];
+
+
+  function getDetails($userId)
+	{
+	    global $pdo;
+      $studentDetails = array();
+
+	    $isValid = false;
+	    $userIdFromDB = '';
+
+		//Not required because we use PreparedStatement bind() method. However sanitize() uses other cleaning as well.
+	   // $userId = $this->sanitize($userId);
+	   // $password = $this->sanitize($password);
+
+	    $sql = "SELECT * from TblStudent where RegnNo=:userId";
+	    //$sql = "SELECT * from TblMember where UserId=:userId";
+
+	    try
+	    {
+	        $statement = $pdo->prepare($sql);
+
+	        $statement->bindParam(":userId", $userId);
+
+
+	        $statement->execute();
+
+          $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+          foreach($rows as $row) {
+              //printf("$row[0] $row[1] $row[2]\n");
+              //print_r($row);
+              //echo $row['UserId'];
+
+              //$userName = $row['Name'];
+              //$regnNo = $row['RegnNo'];
+              $studentDetails['userName'] = $row['Name'];
+              $studentDetails['regnNo'] = $row['RegnNo'];
+              $studentDetails['dob'] = $row['DOB'];
+              $studentDetails['gender'] = $row['Gender'];
+              $studentDetails['course'] = $row['Course'];
+              $studentDetails['fathersName'] = $row['FathersName'];
+              $studentDetails['mothersName'] = $row['MothersName'];
+              $studentDetails['email'] = $row['Email'];
+              $studentDetails['mobile'] = $row['Mobile'];
+              $studentDetails['address'] = $row['Address'];
+          }
+
+	       	//$pdo = null;
+	    }
+	    catch(PDOException $e)
+	    {
+	    	//[TODO] Proper way of error handling.
+	        echo 'ERROR: ' . $e->getMessage();
+	    }
+
+      //print_r($studentDetails);
+	    return $studentDetails;
+	    //return $userIdFromDB;
+	}
 ?>
       <p class="profilePageText">
           Welcome to your <b>Profile</b> page.
@@ -8,64 +82,68 @@
           <tr>
               <td>Name </td>
               <td>
-                <?php echo isset($_SESSION['user']) ? $_SESSION['user'] : 'Guest';?>
+                <?php echo $userName;?>
               </td>
           </tr>
           <tr>
               <td>Registration Number </td>
               <td>
-                R12345
+                <?php echo $regnNo;?>
               </td>
           </tr>
           <tr>
               <td>Date of Birth </td>
               <td>
-                01-Jan-2000
+                <?php echo $dob;?>
               </td>
           </tr>
           <tr>
-              <td>Age </td>
+              <td>Gender </td>
               <td>
-                22
+                <?php echo $gender;?>
               </td>
           </tr>
           <tr>
               <td>Course </td>
               <td>
-                B.Tech (CSE)
+                <?php echo $course;?>
               </td>
           </tr>
       </table>
       <table class="profileData profileDataRight">
           <tr>
-              <td>Name </td>
+              <td>F. Name </td>
               <td>
-                <?php echo isset($_SESSION['user']) ? $_SESSION['user'] : 'Guest';?>
+                <?php echo $fathersName;?>
               </td>
           </tr>
           <tr>
-              <td>Registration Number </td>
+              <td>M. Name </td>
               <td>
-                R12345
+                <?php echo $mothersName;?>
               </td>
           </tr>
           <tr>
-              <td>Date of Birth </td>
+              <td>Email </td>
               <td>
-                01-Jan-2000
+                <?php echo $email;?>
               </td>
           </tr>
           <tr>
-              <td>Age </td>
+              <td>Mobile </td>
               <td>
-                22
+                <?php echo $mobile;?>
               </td>
           </tr>
           <tr>
-              <td>Course </td>
-              <td>B.Tech (CSE)</td>
+              <td>Address </td>
+              <td>
+                <?php echo $address;?>
+              </td>
           </tr>
       </table>
+
+      Click <a href='edit.php'>here</a> to edit the details.
 <?php
   require_once 'inc/footer.php';
 ?>
