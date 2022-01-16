@@ -4,7 +4,7 @@
 
 <h2>Completed</h2>
 
-<table class="versionHistory">
+<table class="table table-hover table-bordered versionHistory">
     <thead>
         <tr>
             <th>Version</th>
@@ -58,7 +58,7 @@
                 <li>Uploaded the Student data via PhpMyAdmin for the 9 students.</li>
                 <li>Verified the students details at random in the Web Application</li>
                 <li>#ToDO Add Master Data - Departments and Year</li>
-                <li>#ToDo UI Redesign - using Bootstrap</li>
+                <li>(WIP) UI Redesign - using Bootstrap</li>
               </ul>
             </td>
             <td></td>
@@ -68,7 +68,7 @@
 
 <h2>Pending</h2>
 
-<table class="versionHistory">
+<table class="table table-hover table-bordered versionHistory">
     <thead>
         <tr>
             <th>Version</th>

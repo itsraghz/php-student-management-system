@@ -50,6 +50,12 @@ Query OK, 1 row affected (0.00 sec)
 MariaDB [sms]> INSERT INTO TblUser (UserId, Password) VALUES ("S0002", "S0002");
 Query OK, 1 row affected (0.00 sec)
 
+MariaDB [sms]> INSERT INTO TblUser (UserId, Password) VALUES ("912518106005", "912518106005");
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [sms]> INSERT INTO TblUser (UserId, Password) VALUES ("912518106002", "912518106002");
+Query OK, 1 row affected (0.00 sec)
+
 MariaDB [sms]> show tables;
 +---------------+
 | Tables_in_sms |
@@ -107,7 +113,6 @@ Query OK, 1 row affected (0.00 sec)
 MariaDB [sms]> INSERT INTO TblStudent (RegnNo, Name, DOB, Gender, Department, Year, AadhaarNo, FathersName, MothersName, Email, Mobile, Address)
     -> VALUES ('S0002', 'Shanmugan', '2000-01-10', 'M', 'B.Tech (IT)', 2, '234567890123', 'Shiva', 'Parvathi', 'lordmuruga@heaven.com', '2345678901', 'Shanmugan, No 1, Temple Street, Heaven');
 Query OK, 1 row affected (0.00 sec)
-
 
 MariaDB [sms]> select * from tblstudent;
 +----+--------------+--------------------+------------+--------+--------------+------+--------------+----------------+-------------+----------------------------+------------+--------------------------------------------------------------------------+

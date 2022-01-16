@@ -3,6 +3,8 @@ USE SMS;
 -- 1. Sample Data for TblUser
 INSERT INTO TblUser (UserId, Password) VALUES ("S0001", "S0001");
 INSERT INTO TblUser (UserId, Password) VALUES ("S0002", "S0002");
+INSERT INTO TblUser (UserId, Password) VALUES ("912518106005", "912518106005");
+INSERT INTO TblUser (UserId, Password) VALUES ("912518106002", "912518106002");
 
 --2. Sample Data for TblStudent - Simple
 

@@ -82,7 +82,11 @@
       <p class="profilePageText">
           Welcome to your <b>Profile</b> page.
       </p>
-      <table class="profileData profileDataLeft">
+      <div class="profileData profilePic">
+        <img src='data/pics/<?php echo $_SESSION['user'];?>.jpg' width=100 height=100/>
+      </div>
+      <table class="table table-hover table-bordered profileData profileDataLeft">
+        <caption>Profile Data</caption>
           <tr>
               <td>Name </td>
               <td>
@@ -119,8 +123,8 @@
                 <?php echo $year;?>
               </td>
           </tr>
-      </table>
-      <table class="profileData profileDataRight">
+      <!--</table>
+      <table class="table table-hover table-bordered profileData profileDataRight">-->
           <tr>
               <td>Aadhaar</td>
               <td>
@@ -128,13 +132,13 @@
               </td>
           </tr>
           <tr>
-              <td>F. Name </td>
+              <td>Father's Name </td>
               <td>
                 <?php echo $fathersName;?>
               </td>
           </tr>
           <tr>
-              <td>M. Name </td>
+              <td>Mother's Name </td>
               <td>
                 <?php echo $mothersName;?>
               </td>
@@ -158,9 +162,6 @@
               </td>
           </tr>
       </table>
-      <div class="profileData profilePic">
-        <img src='data/pics/<?php echo $_SESSION['user'];?>.jpg' width=100 height=100/>
-      </div>
 <?php
   require_once 'inc/footer.php';
 ?>
