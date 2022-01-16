@@ -34,7 +34,8 @@
 	   // $userId = $this->sanitize($userId);
 	   // $password = $this->sanitize($password);
 
-	    $sql = "SELECT * from TblUser where UserId=:userId and Password=:password";
+	    //$sql = "SELECT * from TblUser where UserId=:userId and Password=:password";
+      $sql = "SELECT Name from TblUser a, TblStudent b where a.UserId=b.RegnNo AND a.UserId=:userId and a.Password=:password";
 	    //$sql = "SELECT * from TblMember where UserId=:userId";
 
 	    try
@@ -60,9 +61,10 @@
 
           foreach($rows as $row) {
               //printf("$row[0] $row[1] $row[2]\n");
-              //print_r($row);
+              print_r($row);
               //echo $row['UserId'];
               $isValid = true;
+              $_SESSION['userName']=$row['Name'];
           }
 
           /*while($rows!==false) {

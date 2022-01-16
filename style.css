@@ -19,6 +19,10 @@ div.welcomeTxt {
   margin-top: 150px;
 }
 
+p.homePageTxt {
+  margin-left: 100px;
+}
+
 div.login {
   font-family: "Cascadia Code", "Calibri", "sans-serif";
   position: absolute;
@@ -109,6 +113,7 @@ table.profileDataLeft {
 }
 
 table.profileDataRight {
+    float: left;
     margin-left: 500px;
     margin-top: -205px;
 }
@@ -124,4 +129,11 @@ table.versionHistory {
 table.versionHistory td {
   padding: 10px;
   border: 1px solid slategray;
+}
+
+.profilePic {
+  float: left;
+  margin-left: 950px;
+  margin-top: -225px;
+  border: 2px solid black;
 }

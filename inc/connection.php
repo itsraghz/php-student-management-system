@@ -1,6 +1,6 @@
 <?php
 	try {
-		/*$pdo = new PDO('mysql:host=localhost;dbname=<DB>', '<User>','<Pwd>');
+		/*$pdo = new PDO('mysql:host=localhost;dbname=<dbName>', '<username>','<password>');
 	    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);*/
 
    		/* Ref : http://php.net/manual/en/ref.pdo-mysql.connection.php */
@@ -10,7 +10,7 @@
 	        PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
 	    );
 
-	    $pdo = new PDO('mysql:host=localhost;dbname=sms', '<UserName>','<Password>', $options);
+	    $pdo = new PDO('mysql:host=localhost;dbname=sms', '<username>','<password>', $options);
 	    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
       //echo "DB Connection succeeded! <br/>";

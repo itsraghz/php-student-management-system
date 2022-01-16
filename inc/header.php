@@ -24,7 +24,7 @@
           if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
             unset($_SESSION['message']);
             unset($_SESSION['errMsg']);
-            require_once 'menu.php';
+            require_once __DIR__ . './menu.php';
           } else {
             //echo "User is not in Session!";
             if(strcmp($scriptName, "/sms/index.php")!=0) {

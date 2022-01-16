@@ -33,7 +33,7 @@
         </tr>
         <tr>
             <td>1.1</td>
-            <td>15 Jan 2022 Friday</td>
+            <td>15 Jan 2022 Saturday</td>
             <td>
               <ul>
                 <li>Database Connection established</li>
@@ -41,6 +41,24 @@
                 <li>Sample Data inserted for the DB Tables</li>
                 <li>PHP Code modified to authenticate the user from the DB</li>
                 <li>View Profile for Student - shows the full details from DB.</li>
+              </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>1.2</td>
+            <td>16 Jan 2022 Sunday</td>
+            <td>
+              <ul>
+                <li>File Upload - Demo in PHP</li>
+                <li>Sample Data from Google Drive to MySQL Database, including Photo.</li>
+                <li>View Profile - with Photo</li>
+                <li>Util - `BulkUserUpload.php` to upload the data into `TblUser` </li>
+                <li>DB Design Change - Add Year, AadhaarCard in the TblStudent</li>
+                <li>Uploaded the Student data via PhpMyAdmin for the 9 students.</li>
+                <li>Verified the students details at random in the Web Application</li>
+                <li>#ToDO Add Master Data - Departments and Year</li>
+                <li>#ToDo UI Redesign - using Bootstrap</li>
               </ul>
             </td>
             <td></td>

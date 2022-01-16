@@ -34,7 +34,7 @@
                 <td>UserName &nbsp;&nbsp;&nbsp;</td>
                 <td>
                   <input type="text" name="userName" id="userName"
-                  value="S0001" placeholder="User Name"
+                  value="912518106005" placeholder="User Name"
                   required=true size=20/>
                 </td>
             </tr>
@@ -42,7 +42,7 @@
                 <td>Password &nbsp;&nbsp;&nbsp;</td>
                 <td>
                   <input type="password" name="password" id="password"
-                  value="S0001" placeholder="Password"
+                  value="912518106005" placeholder="Password"
                   required=true size=20/>
                 </td>
             </tr>

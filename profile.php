@@ -9,7 +9,9 @@
   $regnNo = $studentDetails['regnNo'];
   $dob = $studentDetails['dob'];
   $gender = $studentDetails['gender'];
-  $course = $studentDetails['course'];
+  $department = $studentDetails['department'];
+  $year = $studentDetails['year'];
+  $aadhaarNo = $studentDetails['aadhaarNo'];
   $fathersName = $studentDetails['fathersName'];
   $mothersName = $studentDetails['mothersName'];
   $email = $studentDetails['email'];
@@ -54,7 +56,9 @@
               $studentDetails['regnNo'] = $row['RegnNo'];
               $studentDetails['dob'] = $row['DOB'];
               $studentDetails['gender'] = $row['Gender'];
-              $studentDetails['course'] = $row['Course'];
+              $studentDetails['department'] = $row['Department'];
+              $studentDetails['year'] = $row['Year'];
+              $studentDetails['aadhaarNo'] = $row['AadhaarNo'];
               $studentDetails['fathersName'] = $row['FathersName'];
               $studentDetails['mothersName'] = $row['MothersName'];
               $studentDetails['email'] = $row['Email'];
@@ -86,31 +90,43 @@
               </td>
           </tr>
           <tr>
-              <td>Registration Number </td>
+              <td>Registration Number</td>
               <td>
                 <?php echo $regnNo;?>
               </td>
           </tr>
           <tr>
-              <td>Date of Birth </td>
+              <td>Date of Birth</td>
               <td>
                 <?php echo $dob;?>
               </td>
           </tr>
           <tr>
-              <td>Gender </td>
+              <td>Gender</td>
               <td>
                 <?php echo $gender;?>
               </td>
           </tr>
           <tr>
-              <td>Course </td>
+              <td>Department</td>
               <td>
-                <?php echo $course;?>
+                <?php echo $department;?>
+              </td>
+          </tr>
+          <tr>
+              <td>Year</td>
+              <td>
+                <?php echo $year;?>
               </td>
           </tr>
       </table>
       <table class="profileData profileDataRight">
+          <tr>
+              <td>Aadhaar</td>
+              <td>
+                <?php echo $aadhaarNo;?>
+              </td>
+          </tr>
           <tr>
               <td>F. Name </td>
               <td>
@@ -141,7 +157,10 @@
                 <?php echo $address;?>
               </td>
           </tr>
-      </table>      
+      </table>
+      <div class="profileData profilePic">
+        <img src='data/pics/<?php echo $_SESSION['user'];?>.jpg' width=100 height=100/>
+      </div>
 <?php
   require_once 'inc/footer.php';
 ?>
