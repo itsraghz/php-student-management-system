@@ -1,0 +1,10 @@
+<configuration xmlns="http://logging.apache.org/log4php/">
+    <appender name="default" class="LoggerAppenderMail">
+        <layout class="LoggerLayoutSimple" />
+        <param name="to" value="raghavan.muthu@outlook.com" />
+        <param name="from" value="logger@example.com" />
+    </appender>
+    <root>
+        <appender_ref ref="default" />
+    </root>
+</configuration>

@@ -1,0 +1,37 @@
+<configuration xmlns="http://logging.apache.org/log4php/">
+
+    <appender name="myConsoleAppender" class="LoggerAppenderConsole" />
+
+    <appender name="myFileAppender" class="LoggerAppenderFile">
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date [%logger] %message%newline" />
+        </layout>
+        <param name="file" value="logs/myFooLog.log" />
+    </appender>
+
+    <appender name="myRollingFileAppender" class="LoggerAppenderRollingFile">
+        <layout class="LoggerLayoutPattern">
+            <!--<param name="conversionPattern" value="%date [%logger] %message%newline" />-->
+            <param name="conversionPattern" value="[%sessionid] [%level] %date{Y-m-d H:i:s,u} [%logger{25} | %method (%line)] - %message%newline"/>
+        </layout>
+        <param name="file" value="logs/myRollingLog.log" />
+        <!--
+        <param name="maxFileSize" value="1MB" />
+        <param name="maxBackupIndex" value="5" />
+        -->
+        <param name="maxFileSize" value="500KB" />
+        <param name="maxBackupIndex" value="5" />
+    </appender>
+
+    <logger name="Foo">
+        <!--<appender_ref ref="myFileAppender" />-->
+        <appender_ref ref="myRollingFileAppender"/>
+    </logger>
+
+    <root>
+        <level value="DEBUG" />
+        <appender_ref ref="myConsoleAppender" />
+        <!--<appender_ref ref="myFileAppender" />-->
+        <appender_ref ref="myRollingFileAppender" />
+    </root>
+</configuration>

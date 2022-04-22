@@ -33,6 +33,7 @@
 * (?) View Profile - Should we need to show the profile of the staff?
 * Search Student - Links to
   * View Student Profile
+    (*) Should see the Community of the Student     
   * Update Student Profile
   * View Attendance
   * View Fees
@@ -40,6 +41,9 @@
   * Add Remarks
   * Update Remarks
   * Reset Password
+* Report
+  * Fees
+  * Attendance
 
 ### Admin
 
@@ -58,7 +62,7 @@
 * Modify Fees
 * Search Functionality
   * Search By Student Id
-  * Search By Student Name
+  * Search By Student Name        
   * Search All Students by Department-Year combination
 
 ## Hosting

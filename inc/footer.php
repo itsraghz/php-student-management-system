@@ -1,4 +1,4 @@
-
+        </div> <!-- content div ends -->
       </div><!-- /.container -->
 
 
@@ -10,6 +10,19 @@
       <script src="dist/js/bootstrap.min.js"></script>
       <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
       <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+      <!-- for pagination - start -->
+      <script>
+        $(document).ready(function () {
+            $('#records-limit').change(function () {
+                $('form').submit();
+            })
+        });
+      </script>
+      <!-- for pagination - end -->
+      <div class="footer">
+        <!--hr size=5 color=green/> -->
+        &copy; Sri Raja Rajan College of Engg., and Tech. - 2022 | V2.3 - 21 Apr 2022 Thursday
+      </div>
     </div>
   </body>
 </html>

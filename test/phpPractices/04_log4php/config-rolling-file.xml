@@ -1,0 +1,15 @@
+<configuration xmlns="http://logging.apache.org/log4php/">
+    <appender name="default" class="LoggerAppenderRollingFile">
+        <layout class="LoggerLayoutSimple" />
+        <param name="file" value="rollingFile.log" />
+        <!--
+        <param name="maxFileSize" value="1MB" />
+        <param name="maxBackupIndex" value="5" />
+        -->
+        <param name="maxFileSize" value="500KB" />
+        <param name="maxBackupIndex" value="5" />
+    </appender>
+    <root>
+        <appender_ref ref="default" />
+    </root>
+</configuration>

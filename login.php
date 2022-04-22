@@ -1,5 +1,9 @@
 <?php
-  require_once 'inc/header.php';
+  //require_once 'inc/header.php';
+  require_once __DIR__ . './inc/header.php';
+  //require_once 'dao/UserDAO.php';
+  require_once __DIR__ . '/dao/UserDAO.php';
+
   //echo "Login Page";
 
   $userName = $_POST['userName'];
@@ -11,78 +15,30 @@
   echo "<li>Password : " . $password . "</li>";
   echo "</ul>";*/
 
+  $UserDAO = new UserDAO;
+
   //if(strcmp($userName, "912517114301")==0 && strcmp($password, "912517114301")==0) {
-  if(checkUserExists($userName, $password)) {
+  if($UserDAO->verifyLogin($userName, $password)) {
   //if(strcmp($userName, $password)==0) {
-    //echo "Login Successful!";
+    echo "Login Successful!";
     $_SESSION['user']=$userName;
+
+    $_SESSION['logged_in'] = true;
+    $_SESSION['login_time'] = time();
+    //$attempted_url = getAttemptedURL();
+    //echo "<b>Attempted URL: </b> ['" . getAttemptedURL() . "'] <br/>";
+
+    /* [09Oct2016] to find out the inactive time */
+    $_SESSION['last_accessed_time'] = time();
+
     header('Location: home.php');
+    //header('Location: ' . $attempted_url);
   } else {
-    echo "Login failed!";
+    //echo "Login failed!";
     $_SESSION['errMsg']="Invalid Username/Password. Try again!";
     header('Location: index.php');
   }
 
-  function checkUserExists($userId, $password)
-	{
-	    global $pdo;
-
-	    $isValid = false;
-	    $userIdFromDB = '';
-
-		//Not required because we use PreparedStatement bind() method. However sanitize() uses other cleaning as well.
-	   // $userId = $this->sanitize($userId);
-	   // $password = $this->sanitize($password);
-
-	    //$sql = "SELECT * from TblUser where UserId=:userId and Password=:password";
-      $sql = "SELECT Name from TblUser a, TblStudent b where a.UserId=b.RegnNo AND a.UserId=:userId and a.Password=:password";
-	    //$sql = "SELECT * from TblMember where UserId=:userId";
-
-	    try
-	    {
-	        $statement = $pdo->prepare($sql);
-
-	        $statement->bindParam(":userId", $userId);
-	       	$statement->bindParam(":password", $password);
-
-	        $statement->execute();
-
-	        //$row = $query->fetch();
-          /*
-          while (($row = $statement->fetchAll(PDO::FETCH_ASSOC)) !== false) {
-              echo $row['UserId'] . '<br>';
-              $isValid = true;
-          }
-          */
-
-          $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-          //print_r($sth->execute());
-
-          foreach($rows as $row) {
-              //printf("$row[0] $row[1] $row[2]\n");
-              print_r($row);
-              //echo $row['UserId'];
-              $isValid = true;
-              $_SESSION['userName']=$row['Name'];
-          }
-
-          /*while($rows!==false) {
-            echo $rows['UserId'];
-            $isValid = true;
-          }*/
-
-	       	//$pdo = null;
-	    }
-	    catch(PDOException $e)
-	    {
-	    	//[TODO] Proper way of error handling.
-	        echo 'ERROR: ' . $e->getMessage();
-	    }
-
-	    return $isValid;
-	    //return $userIdFromDB;
-	}
-
-  require_once 'inc/footer.php';
+  //require_once 'inc/footer.php';
+  require_once __DIR__ . '/inc/footer.php';
 ?>
