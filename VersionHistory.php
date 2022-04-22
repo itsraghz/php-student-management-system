@@ -1,6 +1,6 @@
 <?php
   //require_once 'inc/header.php';
-  require_once __DIR__ . './inc/header.php';
+  require_once __DIR__ . '/inc/header.php';
 ?>
 
 <h2>Completed</h2>
@@ -92,5 +92,5 @@
 </table>
 <?php
   //require_once 'inc/footer.php';
-  require_once __DIR__ . './inc/footer.php';
+  require_once __DIR__ . '/inc/footer.php';
 ?>
