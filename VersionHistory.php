@@ -19,11 +19,17 @@
             <td>1.0</td>
             <td>14 Jan 2022 Friday</td>
             <td>
-              <ul>
-                <li></li>
+                <li>Student Module - Add User, View Profiles</li>
+                <li>Listing with Pagination</li>
+                <li>Profile Pic enabled</li>
+                <li>Session Timeout</li>
               </ul>
             </td>
-            <td></td>
+            <td>
+              <ul>
+                <li>Tested in PROD</li>
+              </ul>
+            </td>
         </tr>
     </tbody>
 </table>
