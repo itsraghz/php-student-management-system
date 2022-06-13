@@ -5,6 +5,8 @@ A PHP based web application to track the Student Management Application
 cd C:\installedSoft\xampp\htdocs\sms
 C:\installedSoft\xampp\htdocs\sms>rm -rf *
 C:\installedSoft\xampp\htdocs\sms>cp -r \raghs\prfsnl\github-repos\web-dev-projects\01_student-mgmt-project\00-web-project\* .
+C:\installedSoft\xampp\htdocs\sms>cp confidential\data\pics\* data\pics
+C:\installedSoft\xampp\htdocs\sms>ls -ltrh data\pics
 ```
 
 > A new try made on 17 Apr 2022 to test it in a higher version of XAMPP installed on D Drive,
@@ -27,4 +29,4 @@ D:\installedSoft\xampp-8.1.4\htdocs\sms>cp -r c:\raghs\prfsnl\github-repos\web-d
 
 # User Guide
 
-* Photo should be ONLY in '.jpg' format. 
+* Photo should be ONLY in '.jpg' format.

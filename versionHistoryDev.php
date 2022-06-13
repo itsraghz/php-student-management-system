@@ -226,6 +226,25 @@
             </td>
             <td></td>
         </tr>
+        <tr>
+            <td>1.0</td>
+            <td>23 Apr 2022 Saturday</td>
+            <td>
+                <li>Config Mode added</li>
+                <li>VERSION_INFO in Footer added</li>
+                <li>Quick Login Util added for the DEV Mode</li>
+                <li>Department IS_DELETED renamed to IS_ACTIVE to be consistent</li>
+                <li>All the BO classes now extend BaseBO</li>
+                <li>BO and DAO Classed added for the other tables - TblUserRole, TblRole, TblStudent</li>
+                <li>DAO Methods added - getAllRoles(), getRolesForUser()</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li></li>
+              </ul>
+            </td>
+        </tr>
     </tbody>
 </table>
 <?php

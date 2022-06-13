@@ -1,7 +1,7 @@
 <?php
-  require_once __DIR__ . './../inc/header.php';
-  require_once __DIR__ . './../dao/UserDAO.php';
-  require_once __DIR__ . './../bo/TblUserBO.php';
+  require_once __DIR__ . '/../inc/header.php';
+  require_once __DIR__ . '/../dao/UserDAO.php';
+  require_once __DIR__ . '/../bo/TblUserBO.php';
 
   $UserDAO = new UserDAO;
 
@@ -45,5 +45,5 @@
     //header('Location: addProfile0.php');
   }
 
-  require_once __DIR__ . './../inc/footer.php';
+  require_once __DIR__ . '/../inc/footer.php';
 ?>

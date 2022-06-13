@@ -1,6 +1,6 @@
 <?php
-  require_once __DIR__ . './../inc/header.php';
-  require_once __DIR__ . './../dao/UserDAO.php';
+  require_once __DIR__ . '/../inc/header.php';
+  require_once __DIR__ . '/../dao/UserDAO.php';
 
   //echo "<pre>", print_r($_POST), "</pre>";
   //echo "</pre>", var_dump($_POST), "</pre>";
@@ -23,5 +23,5 @@
     header('Location: create.php');
   }
 
-  require_once __DIR__ . './../inc/footer.php';
+  require_once __DIR__ . '/../inc/footer.php';
 ?>

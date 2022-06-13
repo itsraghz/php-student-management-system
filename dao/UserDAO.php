@@ -7,7 +7,7 @@ require_once 'BaseDAO.php';
 require_once DOCUMENT_ROOT . '/../db/connection.php';*/
 //require_once __DIR__ . '/../bo/TblUserBO.php';
 require_once __DIR__ . '/../db/connection.php';
-require_once __DIR__ . './../bo/TblUserBO.php';
+require_once __DIR__ . '/../bo/TblUserBO.php';
 
 
 // Insert the path where you unpacked log4php
@@ -60,11 +60,12 @@ class UserDAO extends BaseDAO
 	    $password = $this->sanitize($password);
 
 	    //$sql = "SELECT * from TblUser where UserId=:userId and Password=:password";
-      $sql = "SELECT Name from TblUser a, TblStudent b where a.UserId=b.RegnNo AND a.UserId=:userId and a.Password=:password";
+      //$sql = "SELECT Name from TblUser a, TblStudent b where a.UserId=b.RegnNo AND a.UserId=:userId and a.Password=:password";
+      $sql = "SELECT * from TblUser a where a.UserId=:userId and a.Password=:password";
 	    //$sql = "SELECT * from TblMember where UserId=:userId";
 
       //echo "<b>Query : </b> " . $sql . "<br/>";
-      $this->log->debug("<b>Query : </b> " . $sql);
+      $this->log->debug("Query : [ " . $sql . "]");
 
 	    try
 	    {
@@ -92,8 +93,15 @@ class UserDAO extends BaseDAO
               //print_r($row);
               //echo $row['UserId'];
               $isValid = true;
-              $_SESSION['userName']=$row['Name'];
-              $this->log->info('Successful match of an User with the name [' . $row['Name'] . ']. It is set in session.');
+
+              $UserBO = $this->getUserByUserName($userId);
+              $this->log->debug("User BO :: " . $UserBO);
+
+              //if(isset($_SESSION['UserBO']) && !empty($_SESSION['UserBO'])) {
+              if(!empty($UserBO)) {
+                $_SESSION['userName']=$UserBO->getUserId();
+                $this->log->info('Successful match of an User with the name [' . $_SESSION['userName'] . ']. It is set in session.');
+              }
           }
 
           /*while($rows!==false) {
@@ -118,6 +126,9 @@ class UserDAO extends BaseDAO
 
   function checkUserExists($userId)
   {
+      $this->log->debug('checkUserExists() - ENTER');
+      $this->log->debug('userId : [' . $userId . ']');
+
       global $pdo;
 
       $isValid = false;
@@ -130,6 +141,7 @@ class UserDAO extends BaseDAO
       //$sql = "SELECT * from TblMember where UserId=:userId";
 
       //echo "<b>Query : </b> " . $sql . "<br/>";
+      $this->log->debug("Query : [ " . $sql . "]");
 
       try
       {
@@ -169,7 +181,10 @@ class UserDAO extends BaseDAO
       {
         //[TODO] Proper way of error handling.
           echo 'ERROR: ' . $e->getMessage();
-      }
+          $this->log->error('ERROR : ' . $e->getMessage());
+	    }
+
+      $this->log->debug('checkUserExists() - EXIT, isValid : [' . $isValid . ']');
 
       return $isValid;
       //return $userIdFromDB;
@@ -177,6 +192,8 @@ class UserDAO extends BaseDAO
 
   function insertUser()
 	{
+      $this->log->debug('insertUser() - ENTER');
+
 	    global $pdo;
 
       $UserName = $_POST['RegnNo'];
@@ -188,6 +205,8 @@ class UserDAO extends BaseDAO
 	    //$sql = "SELECT * from TblUser where UserId=:userId and Password=:password";
       $sql = "INSERT INTO TblUser (UserId, Password) VALUES (:userName, :password)";
 	    //$sql = "SELECT * from TblMember where UserId=:userId";
+
+      $this->log->debug("Query : [ " . $sql . "]");
 
       $IdInserted = 0;
 
@@ -203,7 +222,7 @@ class UserDAO extends BaseDAO
           $statement->execute();
           $IdInserted = $pdo->lastInsertId();
           //echo "<i>Inserted into the TblUser, with Id : <b>" . $IdInserted . "</b></i> <br/>";
-
+          $this->log->debug("IdInserted : [ " . $IdInserted . "]");
           //$pdo->commit();
 	    }
 	    catch(PDOException $e)
@@ -211,7 +230,10 @@ class UserDAO extends BaseDAO
 	    	//[TODO] Proper way of error handling.
           //$pdo->rollback();
 	        echo '<br/>ERROR: ' . $e->getMessage();
+          $this->log->error('ERROR : ' . $e->getMessage());
 	    }
+
+      $this->log->debug('insertUser() - EXIT');
 
 	    //return $isValid;
 	    //return $userIdFromDB;
@@ -352,26 +374,46 @@ class UserDAO extends BaseDAO
   }
 
 
-  function getUserName($userId, $password)
+  function getIdByUserName($UserName)
 	{
+      $this->log->debug('getIdByUserName() - ENTER');
+      $this->log->debug('UserName : [' . $UserName . ']');
+
+	    $UserBO = $this->getUserByUserName($UserName);
+      $Id = 0;
+      if(!empty($UserBO)) {
+        $Id = $UserBO->getId();
+      }
+
+      $this->log->debug('Id :: ' . $Id);
+      $this->log->debug('getIdByUserName() - EXIT');
+
+	    return $Id;
+	}
+
+  function getUserByUserName($UserName)
+	{
+      $this->log->debug('getUserByUserName() - ENTER');
+      $this->log->debug('UserName : [' . $UserName . ']');
+
 	    global $pdo;
 
-	    $isValid = false;
-	    $userIdFromDB = '';
+      $isValid=false;
+	    $Id = '';
 
 		  //Not required because we use PreparedStatement bind() method. However sanitize() uses other cleaning as well.
-	    $userId = $this->sanitize($userId);
-	    $password = $this->sanitize($password);
+	    $UserName = $this->sanitize($UserName);
 
-	    $sql = "SELECT * from TblMember where UserId=:userId and UPPER(EmailId1)=UPPER(:emailId)";
+	    $sql = "SELECT * from TblUser where UserId=:UserName";
 	    //$sql = "SELECT * from TblMember where UserId=:userId";
 
+      $this->log->debug("Query : [ " . $sql . "]");
+      $UserBO = null;
 	    try
 	    {
 	        $query = $pdo->prepare($sql);
 
-	        $query->bindParam(":userId", $userId);
-	       	$query->bindParam(":emailId", $password);
+	        $query->bindParam(":UserName", $UserName);
 
 	        $query->execute();
 
@@ -385,20 +427,21 @@ class UserDAO extends BaseDAO
 
 	        $row = $query->fetch();
 
-	        $memberBO = new TblMemberBO;
-	        $memberBO->copyFromResultSet($row);
+	        $UserBO = new TblUserBO;
+	        $UserBO->copyFromResultSet($row);
 
-	        if(!empty($memberBO->getName()))
+	        if(!empty($UserBO->getId()))
 	        {
 	            $isValid=true;
-	            $userIdFromDB = $memberBO->getName();
+	            //$Id = $userBO->getId();
 							/** gets omitted because of a redirection through header() function in login.php */
 							/*echo "<br/>--------- <br/>";
 							echo "<pre> " , var_dump($_SESSION), "</pre>";
 					    echo "<br/>--------- <br/>";
 							echo "<pre> " , var_dump($memberBO), "</pre>";
 					    echo "<br/>--------- <br/>";*/
-	            storeMemberBOToSession($memberBO);
+
+              storeUserBOToSession($UserBO);
 	        }
 
 	       	//$pdo = null;
@@ -407,10 +450,14 @@ class UserDAO extends BaseDAO
 	    {
 	    	//[TODO] Proper way of error handling.
 	        echo 'ERROR: ' . $e->getMessage();
+          $this->log->error('ERROR : ' . $e->getMessage());
 	    }
 
+      $this->log->debug("## User ## : [ " . $UserBO . "]");
+      $this->log->debug('getUserByUserName() - EXIT');
+
 	    //return $isValid;
-	    return $userIdFromDB;
+	    return $UserBO;
 	}
 
 

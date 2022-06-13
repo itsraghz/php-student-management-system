@@ -1,9 +1,9 @@
 <?php
-  require_once __DIR__ . './../inc/header.php';
+  require_once __DIR__ . '/../inc/header.php';
 
-  require_once __DIR__ . './../inc/header.php';
-  require_once __DIR__ . './../dao/UserDAO.php';
-  require_once __DIR__ . './../bo/TblUserBO.php';
+  require_once __DIR__ . '/../inc/header.php';
+  require_once __DIR__ . '/../dao/UserDAO.php';
+  require_once __DIR__ . '/../bo/TblUserBO.php';
   //session_start();
 
   $UserDAO = new UserDAO;
@@ -64,12 +64,17 @@
       </p>
 
       <?php
+        if(isset($_SESSION['errorMsg']) && !empty($_SESSION['errorMsg'])) {
+          echo "<center><span style='color: red'>" . $_SESSION['errorMsg'] . "</span></center>";
+          unset($_SESSION['errorMsg']);
+        }
+      ?>
+      <?php
         if(isset($_SESSION['profileNotFoundMsg']) && !empty($_SESSION['profileNotFoundMsg'])) {
           echo "<center><span style='color: red'>" . $_SESSION['profileNotFoundMsg'] . "</span></center>";
           unset($_SESSION['profileNotFoundMsg']);
         }
       ?>
-
       <!-- Select dropdown -->
       <div class="d-flex flex-row-reverse bd-highlight mb-3">
           <form action="list.php" method="post">
@@ -131,7 +136,9 @@
               ?>
                 <tr>
                   <th scope="row">
-                    <a href='view.php?user=<?php echo $v['UserId'];?>'><?php echo $v['Id'];?></a>
+                    <a href='view.php?UserId=<?php echo $v['UserId'];?>'><?php echo $v['Id'];?></a>
+                    &nbsp;|&nbsp;
+                    <a href='edit.php?UserId=<?php echo $v['Id'];?>'>E</a>
                   </th>
                   <td><?php echo $v['UserId'];?></td>
                   <td><?php echo $v['CREATED_DATE'];?></td>
@@ -163,5 +170,5 @@
         </nav>
       </div>
 <?php
-  require_once __DIR__ . './../inc/footer.php';
+  require_once __DIR__ . '/../inc/footer.php';
 ?>

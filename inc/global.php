@@ -94,6 +94,7 @@ if(!isset($_SESSION['logged_in']) || (getLoginTimeDiff() > 300 * 10)) {
 
   if($isExcludedSecuredFile && $isInSecuredPageArray) {
     setAttemptedURL($scriptName);
+    unset($_SESSION);
     header('Location: ' . $loginPage);
   }
   else {
@@ -115,6 +116,56 @@ else
   appendWhiteSpace("<a href=\"../logout.php\">Logout</a>", 5);
   echo "<hr size=2 color=\"purple\"/>";
   echo "<br/>";*/
+}
+
+function storeUserBOToSession($UserBO) {
+    //echo "<b>DEBUG</b> ...... storeMemberBOToSession()";
+    //echo '<pre>', var_dump($UserBO), '</pre>';
+
+    $_SESSION['UserBO']=serialize($UserBO);
+
+    //echo '<pre>', var_dump(serialize($UserBO)), '</pre>';
+}
+
+function getUserBOFromSession() {
+    //echo "<b>DEBUG</b> ...... getUserBOFromSession()";
+    //return isset($_SESSION['UserBO']) ? $_SESSION['UserBO'] : null;
+    //return getSessionValue('UserBO');
+
+    /*$tblMemberBO = getSessionValue('UserBO');
+    var_dump($tblUserBO);
+    echo "<br/>----------- <br/>";
+    print_r($tblUserBO);
+    echo "<br/>----------- <br/>";*/
+
+    //echo '<pre>', var_dump(unserialize(getSessionValue('UserBO'))), '</pre>';
+    return unserialize(getSessionValue('UserBO'));
+    //return getSessionValue('UserBO');
+}
+
+function storeStudentBOToSession($StudentBO) {
+    //echo "<b>DEBUG</b> ...... storeStudentBOToSession()";
+    //echo '<pre>', var_dump($StudentBO), '</pre>';
+
+    $_SESSION['StudentBO']=serialize($StudentBO);
+
+    //echo '<pre>', var_dump(serialize($UserBO)), '</pre>';
+}
+
+function getStudentBOFromSession() {
+    //echo "<b>DEBUG</b> ...... getStudentBOFromSession()";
+    //return isset($_SESSION['StudentBO']) ? $_SESSION['StudentBO'] : null;
+    //return getSessionValue('StudentBO');
+
+    /*$tblMemberBO = getSessionValue('StudentBO');
+    var_dump($tblUserBO);
+    echo "<br/>----------- <br/>";
+    print_r($tblUserBO);
+    echo "<br/>----------- <br/>";*/
+
+    //echo '<pre>', var_dump(unserialize(getSessionValue('UserBO'))), '</pre>';
+    return unserialize(getSessionValue('StudentBO'));
+    //return getSessionValue('UserBO');
 }
 
 ?>

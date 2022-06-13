@@ -159,3 +159,104 @@ table.versionHistory td {
 .infoHeader {
   text-align: center;
 }
+
+* Added for dynamic footer */
+#wrapper {
+	min-height:100%;
+	position:relative;
+	/*border: 5px solid red;*/
+}
+
+#content {
+	margin-top: 10px;
+	margin-left: 10px;
+	padding: 5px;
+	padding-bottom:100px;  /* for footer height */
+
+	/*border: 2px solid blue;*/
+}
+
+h1, #content h1 {
+	font-size: 130%;
+	text-align: center;
+	padding: 15px;
+}
+
+footer {
+	display: table-row;
+	height: 1px;
+	background-color: slategrey;
+	color: white;
+	font-size: 0.9em;
+}
+
+.versionInfo {
+	/*float: right;*/
+	margin-right: 20px;
+	/*color: #FFFF00;
+  color: maroon; */
+  color: black;
+}
+
+/* ============ desktop view ============ */
+@media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu{ display: none; }
+	.navbar .nav-item:hover .nav-link{   }
+	.navbar .nav-item:hover .dropdown-menu{ display: block; }
+	.navbar .nav-item .dropdown-menu{ margin-top:0; }
+}
+/* ============ desktop view .end// ============ */
+
+/* CSS Arrows. Reference : https://www.w3schools.com/howto/howto_css_arrows.asp */
+.arrow-orig {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.arrow {
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+/* CSS Down Arrow - Reference :  https://stackoverflow.com/questions/29214195/where-does-the-down-arrow-come-from-in-this-css-drop-down-menu */
+
+#downarrow span:after {
+  width: 0;
+  height: 0;
+  border: 0.313em solid transparent;
+  border-bottom: none;
+  border-top-color: #efa585;
+  content: '';
+  vertical-align: middle;
+  display: inline-block;
+  position: relative;
+  right: -0.313em;
+}
+
+.mandatory {
+  color: red;
+}

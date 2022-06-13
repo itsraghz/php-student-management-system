@@ -17,12 +17,25 @@
     <tbody>
         <tr>
             <td>1.0</td>
-            <td>14 Jan 2022 Friday</td>
+            <td>22 Apr 2022 Friday</td>
             <td>
                 <li>Student Module - Add User, View Profiles</li>
                 <li>Listing with Pagination</li>
                 <li>Profile Pic enabled</li>
                 <li>Session Timeout</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>Tested in PROD</li>
+              </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>2.0</td>
+            <td>24 Apr 2022 Friday</td>
+            <td>
+                <li>Staff Entitlements are in place</li>
               </ul>
             </td>
             <td>
@@ -77,6 +90,7 @@
               <ul>
                 <li>Staff Entitlements to be in place</li>
                 <li>Bug fix - Profile Pic extension</li>
+                <li>Secured URLs</li>
               </ul>
             </td>
             <td></td>

@@ -2,8 +2,8 @@
   ob_start();
   @session_start();
   //echo "dirname(__FILE__) is : " . dirname(__FILE__) . "<br/>";
-  require_once 'configure.php';
-  require_once 'global.php';
+  require_once __DIR__ . '/configure.php';
+  require_once __DIR__ . '/global.php';
   //require_once __DIR__ . './../db/connection.php';
   require_once __DIR__ . '/../db/connection.php';
 
@@ -30,14 +30,14 @@
     <link href="<?php echo DOCUMENT_ROOT . '/dist/css/bootstrap.min.css';?>" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="<?php echo DOCUMENT_ROOT . '/assets/css/ie10-viewport-bug-workaround.css';?>" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <!--<link href="starter-template.css" rel="stylesheet">-->
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="assets/js/ie-emulation-modes-warning.js"></script>
+    <script src="<?php echo DOCUMENT_ROOT . '/assets/js/ie-emulation-modes-warning.js';?>"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -54,6 +54,7 @@
     <!--<link rel="stylesheet" href="<?php //echo dirname(__FILE__) . "/style/style-bootstrap.css";?>/>-->
     <link rel="stylesheet" href="<?php echo DOCUMENT_ROOT . "/inc/style/style-bootstrap.css"; ?>"/>
     <script src="<?php echo DOCUMENT_ROOT . "/inc/scripts/sms.js"; ?>"></script>
+    <script src="<?php echo DOCUMENT_ROOT . "/inc/scripts/populate-defaults.js"; ?>"></script>
   </head>
   <body>
     <div class="container">
@@ -69,6 +70,7 @@
               unset($_SESSION['message']);
               unset($_SESSION['errMsg']);
               require_once 'menu.php';
+              //require_once 'menu-hierarchy.php';
             } else {
               //echo "User is not in Session!";
               if(strcmp($scriptName, "/sms/index.php")!=0) {

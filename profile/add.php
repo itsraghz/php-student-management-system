@@ -1,5 +1,5 @@
 <?php
-  require_once __DIR__ . './../inc/header.php';
+  require_once __DIR__ . '/../inc/header.php';
 
   //echo "User Id in Session : " . $_SESSION['user'] . "<br/>";
 ?>
@@ -47,5 +47,5 @@
         <table>
       </form>
 <?php
-  require_once __DIR__ . './../inc/footer.php';
+  require_once __DIR__ . '/../inc/footer.php';
 ?>

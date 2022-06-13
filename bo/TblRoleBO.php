@@ -2,11 +2,12 @@
 
 require_once 'BaseBO.php';
 
-class TblUserBO extends BaseBO {
+class TblRoleBO  { //extends BaseBO {
 
   private $Id;
-  private $UserId;
-  private $Password;
+  private $Name;
+  private $RoleId;
+  private $Description;
   private $IsActive;
   private $CreatedDate;
   private $CreatedBy;
@@ -15,7 +16,7 @@ class TblUserBO extends BaseBO {
 
   public function __construct()
   {
-    //$this->setUserId(isset($_SESSION['userId']) ? $_SESSION['userId'] : '');
+    //$this->setRoleId(isset($_SESSION['roleId']) ? $_SESSION['roleId'] : '');
     //$this->setLoginTime(date('Y-m-d H:i:s'));
 
     //echo 'The class "', __CLASS__, '" was initiated!<br />';
@@ -29,7 +30,7 @@ class TblUserBO extends BaseBO {
   public function __toString()
   {
       //echo "The __toString() method of TblMemberBO has been invoked.. <br/>";
-      return "[UserBO] Id : " . $this->getId() . ", UserId : " . $this->getUserId();
+      return $this->getRoleId() . ":" . $this->getName();
   }
 
   public function hasProperty($property)
@@ -57,8 +58,9 @@ class TblUserBO extends BaseBO {
     echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <br/>";*/
 
 		$this->setId($row['Id']);
-		$this->setUserId($row['UserId']);
-		$this->setPassword($row['Password']);
+		$this->setRoleId($row['RoleId']);
+    $this->setName($row['Name']);
+		$this->setDescription($row['Description']);
 		$this->setIsActive($row['IS_ACTIVE']);
 		$this->setCreatedDate($row['CREATED_DATE']);
 		$this->setCreatedBy($row['CREATED_BY']);
@@ -109,20 +111,28 @@ class TblUserBO extends BaseBO {
 	    $this->Id=$Id;
 	}
 
-	public function getUserId() {
-	    return $this->UserId;
+	public function getRoleId() {
+	    return $this->RoleId;
 	}
 
-	public function setUserId($UserId) {
-	    $this->UserId=$UserId;
+	public function setRoleId($RoleId) {
+	    $this->RoleId=$RoleId;
 	}
 
-  public function getPassword() {
-	    return $this->Password;
+  public function getName() {
+	    return $this->Name;
 	}
 
-	public function setPassword($Password) {
-	    $this->Password=$Password;
+	public function setName($Name) {
+	    $this->Name=$Name;
+	}
+
+  public function getDescription() {
+	    return $this->Description;
+	}
+
+	public function setDescription($Description) {
+	    $this->Description=$Description;
 	}
 
   public function getIsActive() {
