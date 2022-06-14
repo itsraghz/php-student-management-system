@@ -106,7 +106,7 @@ $_SESSION['searchedUser'] = $StudentBO->getRegnNo();
               </td>
               <td>
                 <input class="form-control" type=text name="RegnNo" id="RegnNo"
-                  size="50" maxlength=15 required=true value="<?php echo $StudentBO->getUserId();?>"
+                  size="50" maxlength=15 required=true value="<?php echo $StudentBO->getRegnNo();?>"
                   tabindex=2 placeholder="Registration No. of the Student" readonly/>
               </td>
           </tr>
