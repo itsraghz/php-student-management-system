@@ -34,4 +34,22 @@
 	}
 
 	define('DOCUMENT_ROOT', getDocumentRoot());
+
+
+	define("ENV", "DEV");
+	//define("ENV", "PROD");
+
+	//define("DEV_QUICK_LOGIN", false);
+	define("DEV_QUICK_LOGIN", true);
+
+	define("VERSION_INFO", "(V 2.0) | 24 Apr 2022 Sunday");
+
+	/** Dev Related Settings - NEED NOT GO TO PROD */
+	error_reporting(E_ALL);
+	ini_set('display_errors', 1);
+	ini_set('log_errors', 1);
+
+	/* [SBI-77] Create a Staging or Parallel Environment for the Admin People to test */
+	//define("IS_STAGING", true);
+	define("IS_STAGING", false);
 ?>

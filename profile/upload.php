@@ -1,10 +1,10 @@
 <?php
-  require_once __DIR__ . './../inc/header.php';
+  require_once __DIR__ . '/../inc/header.php';
 
-  echo '<br/>';
+  /*echo '<br/>';
   echo '<b>Files Array contains : </b> <br/>';
   echo '<pre>' . print_r($_FILES) . '</pre>';
-  echo '<br/>';
+  echo '<br/>';*/
 
   if($_POST['Clear']) {
     unset($_SESSION['fileUploadMsg']);
@@ -59,5 +59,5 @@
 
   header('Location: create.php');
 
-  require_once __DIR__ . './../inc/footer.php';
+  require_once __DIR__ . '/../inc/footer.php';
 ?>

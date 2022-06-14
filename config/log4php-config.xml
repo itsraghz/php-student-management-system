@@ -14,7 +14,7 @@
             <!--<param name="conversionPattern" value="%date [%logger] %message%newline" />-->
             <param name="conversionPattern" value="[%sessionid] [%level] %date{Y-m-d H:i:s,u} [%logger{25} | %method (%line)] - %message%newline"/>
         </layout>
-        <param name="file" value="logs/myRollingLog.log" />
+        <param name="file" value='/installedSoft/xampp/htdocs/sms/logs/myRollingLog.log' />
         <!--
         <param name="maxFileSize" value="1MB" />
         <param name="maxBackupIndex" value="5" />

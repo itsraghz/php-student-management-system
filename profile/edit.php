@@ -1,25 +1,40 @@
 <?php
 require_once __DIR__ . '/../inc/header.php';
+require_once __DIR__ . '/../dao/UserDAO.php';
+require_once __DIR__ . '/../dao/StudentDAO.php';
+require_once __DIR__ . '/../bo/TblUserBO.php';
 
-  //echo "User Id in Session : " . $_SESSION['user'] . "<br/>";
+//echo "User Id in Session : " . $_SESSION['user'] . "<br/>";
+$UserId = $_GET['UserId'];
+
+if(empty($UserId)) {
+  $errorMsg = "Invalid UserId to update the profile. Please try again with the valid input.";
+  $_SESSION['errorMsg']=$errorMsg;
+  header('Location: list.php');
+}
+
+/*$UserDAO = new UserDAO;
+$UserBO = $UserDAO->getUserByUserName($UserId);
+
+if(empty($UserBO)) {
+  $errorMsg = "Profile not exists for the User with the Id [$UserId] for editing. Kindly contact Admin.";
+  $_SESSION['errorMsg']=$errorMsg;
+  header('Location: list.php');
+}*/
+
+$StudentDAO = new StudentDAO;
+$StudentBO = $StudentDAO->getStudentByUserId($UserId);
+
+if(empty($StudentBO)) {
+  $errorMsg = "Profile not exists for the User with the Id [$UserId] for editing. Kindly contact Admin.";
+  $_SESSION['errorMsg']=$errorMsg;
+  header('Location: list.php');
+}
+
+// For the photograph to be modified if at all.
+$_SESSION['searchedUser'] = $StudentBO->getRegnNo();
+
 ?>
-      <?php
-        $IS_ENV_DEV = strcmp(ENV, "DEV")==0;
-
-        if(isset($_SESSION['verifyProfileMsg'])) {
-      ?>
-        <p class="profilePageText">
-            <!--Add the details for a student profile.-->
-            <?php
-              echo "<span style='background-color: teal; color: white;'>" . $_SESSION['verifyProfileMsg'] . "</span>";
-            ?>
-        </p>
-      <?php
-          /*if(isset($_SESSION['canCloseProfileCreationMsg'])) {
-            unset($_SESSION['canCloseProfileCreationMsg']);
-          }*/
-        }
-      ?>
       <?php
         if(isset($_SESSION['fileUploadMsg'])) {
       ?>
@@ -34,6 +49,12 @@ require_once __DIR__ . '/../inc/header.php';
         }
       }
       ?>
+      <p class="profilePageText">
+          Welcome to your <b>Edit Profile</b> page.
+      </p>
+      <div class="profileData profilePic">
+        <img src='<?php echo DOCUMENT_ROOT ; ?>/data/pics/<?php echo $StudentBO->getRegnNo();?>.jpg' width=100 height=100/>
+      </div>
       <table class="table table-hover table-bordered profileData profileDataLeft">
         <caption>Photograph</caption>
         <tr>
@@ -73,8 +94,10 @@ require_once __DIR__ . '/../inc/header.php';
             </td>
             <td>
               <input type="text" class="form-control" id="Name" name="Name"
-              required=true size="50" value="<?php if($IS_ENV_DEV) echo 'Ramba. G';?>" tabindex=1
-              placeholder="Name of the Student">
+              required=true size="50" value="<?php echo $StudentBO->getName() .
+                  ' | Gender : ' . $StudentBO->getGender() .
+                  " | Department : " . $StudentBO->getDepartment();?>"
+              tabindex=1 placeholder="Name of the Student">
             </td>
           </tr>
           <tr>
@@ -83,8 +106,8 @@ require_once __DIR__ . '/../inc/header.php';
               </td>
               <td>
                 <input class="form-control" type=text name="RegnNo" id="RegnNo"
-                  size="50" maxlength=15 required=true value="<?php echo $_SESSION['searchedUser'];?>"
-                  tabindex=2 placeholder="Registration No. of the Student"/>
+                  size="50" maxlength=15 required=true value="<?php echo $StudentBO->getRegnNo();?>"
+                  tabindex=2 placeholder="Registration No. of the Student" readonly/>
               </td>
           </tr>
           <tr>
@@ -92,8 +115,8 @@ require_once __DIR__ . '/../inc/header.php';
                 <label for="dob">Date of Birth</label> <span class='mandatory'>*</span>
               </td>
               <td>
-                <input class="form-control" type=date name="DOB" id="DOB"
-                  value="<?php if($IS_ENV_DEV) echo '2000-10-31';?>"
+                <input class="form-control" type=text name="DOB" id="DOB"
+                  value="<?php echo $StudentBO->getDOB();?>"
                   tabindex=3 size="50" required=true placeholder="Date of Birth of the Student"/>
               </td>
           </tr>
@@ -104,12 +127,12 @@ require_once __DIR__ . '/../inc/header.php';
               <td>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="Gender" id="genderMale"
-                        value="M" tabindex="0">
+                        value="M" tabindex="0" <?php echo strcmp($StudentBO->getGender(), 'M')==0 ? 'checked' : '';?>>
                     <label class="form-check-label" for="genderMale">
                       Male
                     </label>
                     <input class="form-check-input" type="radio" name="Gender" id="genderFemale"
-                        value="F" tabindex="-1" <?php if($IS_ENV_DEV) echo 'checked';?>>
+                        value="F" tabindex="-1" <?php echo strcmp($StudentBO->getGender(), 'F')==0 ? 'checked' : '';?>>
                     <label class="form-check-label" for="genderFemale">
                       Female
                     </label>
@@ -124,11 +147,11 @@ require_once __DIR__ . '/../inc/header.php';
                   <select class="form-select" aria-label="Department"
                       id="department" name="Department" required>
                     <option selected>--SELECT--</option>
-                    <option id="1" value="Mech">Mechanical</option>
-                    <option id="2" value="Civil">Civil</option>
-                    <option id="3" value="EEE">Electrical and Eletronics</option>
-                    <option id="4" value="ECE" <?php if($IS_ENV_DEV) echo 'selected';?>>Eletronics and Communication</option>
-                    <option id="5" value="CSE">Computer Science</option>
+                    <option id="1" value="Mech" <?php echo strcmp($StudentBO->getDepartment(), 'Mech')==0 ? 'selected' : '';?>>Mechanical</option>
+                    <option id="2" value="Civil" <?php echo strcmp($StudentBO->getDepartment(), 'Civil')==0 ? 'selected' : '';?>>Civil</option>
+                    <option id="3" value="EEE" <?php echo strcmp($StudentBO->getDepartment(), 'EEE')==0 ? 'selected' : '';?>>Electrical and Eletronics</option>
+                    <option id="4" value="ECE" <?php echo strcmp($StudentBO->getDepartment(), 'ECE')==0 ? 'selected' : '';?>>Eletronics and Communication</option>
+                    <option id="5" value="CSE" <?php echo strcmp($StudentBO->getDepartment(), 'CSE')==0 ? 'selected' : '';?>>Computer Science</option>
                   </select>
               </td>
           </tr>
@@ -140,10 +163,10 @@ require_once __DIR__ . '/../inc/header.php';
                   <select class="form-select" aria-label="Year of Study"
                       id="year" name="Year" required>
                     <option selected>--SELECT--</option>
-                    <option id="1" value="1">First</option>
-                    <option id="2" value="2">Second</option>
-                    <option id="3" value="3">Third</option>
-                    <option id="4" value="4" <?php if($IS_ENV_DEV) echo 'selected';?>>Fourth</option>
+                    <option id="1" value="1" <?php echo strcmp($StudentBO->getYear(), '1')==0 ? 'selected' : '';?>>First</option>
+                    <option id="2" value="2" <?php echo strcmp($StudentBO->getYear(), '2')==0 ? 'selected' : '';?>>Second</option>
+                    <option id="3" value="3" <?php echo strcmp($StudentBO->getYear(), '3')==0 ? 'selected' : '';?>>Third</option>
+                    <option id="4" value="4" <?php echo strcmp($StudentBO->getYear(), '4')==0 ? 'selected' : '';?>>Fourth</option>
                   </select>
               </td>
           </tr>
@@ -153,7 +176,7 @@ require_once __DIR__ . '/../inc/header.php';
               </td>
               <td>
                 <input class="form-control" type="number" name="AadhaarNo" id="aadhaarNo"
-                  size="50" required=false value="<?php if($IS_ENV_DEV) echo '326095784985';?>"
+                  size="50" required=false value="<?php echo $StudentBO->getAadhaarNo();?>"
                   placeholder="Aadhaar No of the Student" maxlength="12"/>
               </td>
           </tr>
@@ -163,7 +186,7 @@ require_once __DIR__ . '/../inc/header.php';
               </td>
               <td>
                 <input class="form-control" type=text name="FathersName" id="fathersName"
-                  size="50" required=true value="<?php if($IS_ENV_DEV) echo 'Ganesan.S';?>"
+                  size="50" required=true value="<?php echo $StudentBO->getFathersName();?>"
                   placeholder="Father's Name of the Student"/>
               </td>
           </tr>
@@ -173,7 +196,7 @@ require_once __DIR__ . '/../inc/header.php';
             </td>
               <td>
                 <input class="form-control" type=text name="MothersName" id="mothersName"
-                  size="50" required=true value="<?php if($IS_ENV_DEV) echo 'Chitra.G';?>"
+                  size="50" required=true value="<?php echo $StudentBO->getMothersName();?>"
                   placeholder="Mother's Name of the Student"/>
               </td>
           </tr>
@@ -183,7 +206,7 @@ require_once __DIR__ . '/../inc/header.php';
               </td>
               <td>
                 <input class="form-control" type="email" name="Email" id="email"
-                  size="50" required=true value="<?php if($IS_ENV_DEV) echo 'kavikutti57@gmail.com';?>"
+                  size="50" required=true value="<?php echo $StudentBO->getEmail();?>"
                   aria-describedby="emailHelp"
                   placeholder="Email Address of the Student"/>
                   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
@@ -195,7 +218,7 @@ require_once __DIR__ . '/../inc/header.php';
               </td>
               <td>
                 <input class="form-control" type=number name="Mobile" id="mobile"
-                  size="50" required=true value="<?php if($IS_ENV_DEV) echo '6382800226';?>"
+                  size="50" required=true value="<?php echo $StudentBO->getMobile();?>"
                   maxlength="10" min="1000000001"
                   placeholder="Mobile No. of the Student"/>
               </td>
@@ -206,7 +229,7 @@ require_once __DIR__ . '/../inc/header.php';
               </td>
               <td>
                 <textarea class="form-control" name="Address" id="address" rows="3" size="50" required=true value=""
-                  placeholder="Address of the Student"><?php if($IS_ENV_DEV) echo '16/13, Thirunagar, Peyanpatti, O.Siruvayal, Sivaganga, Tamilnadu,630208';?>
+                  placeholder="Address of the Student"><?php echo $StudentBO->getAddress();?>
                 </textarea>
               </td>
           </tr>

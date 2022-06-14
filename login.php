@@ -1,8 +1,10 @@
 <?php
   //require_once 'inc/header.php';
-  require_once __DIR__ . './inc/header.php';
+  require_once __DIR__ . '/inc/header.php';
   //require_once 'dao/UserDAO.php';
   require_once __DIR__ . '/dao/UserDAO.php';
+  require_once __DIR__ . '/dao/UserRoleDAO.php';
+  require_once __DIR__ . '/dao/StudentDAO.php';
 
   //echo "Login Page";
 
@@ -21,6 +23,8 @@
   if($UserDAO->verifyLogin($userName, $password)) {
   //if(strcmp($userName, $password)==0) {
     echo "Login Successful!";
+    $_SESSION['UserId']=$userName;
+    /* [13Jun2022] To resolve the error in the header.php */
     $_SESSION['user']=$userName;
 
     $_SESSION['logged_in'] = true;
@@ -30,6 +34,20 @@
 
     /* [09Oct2016] to find out the inactive time */
     $_SESSION['last_accessed_time'] = time();
+
+    $UserId = $UserDAO->getIdByUserName($userName);
+
+    $UserRoleDAO = new UserRoleDAO;
+    $isUserAStaff = $UserRoleDAO->isUserAStaff($UserId);
+
+    $_SESSION['isUserAStaff']=($isUserAStaff==1) ? true : false;
+
+    $StudentDAO = new StudentDAO;
+    $StudentBO = $StudentDAO->getStudentByUserId($UserId) ;
+
+    if(!empty($StudentBO)) {
+      $_SESSION['userName']=$StudentBO->getName();
+    }
 
     header('Location: home.php');
     //header('Location: ' . $attempted_url);

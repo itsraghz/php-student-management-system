@@ -1,25 +1,25 @@
 <?php
-  require_once __DIR__ . './../inc/header.php';
+  require_once __DIR__ . '/../inc/header.php';
 
   //echo "User Id in Session : " . $_SESSION['user'] . "<br/>";
 
-  $user = isset($_GET['user']) ? $_GET['user'] : '';
+  $UserId = isset($_GET['UserId']) ? $_GET['UserId'] : '';
   //echo "User Id in REQ : " . $_SESSION['user'] . "<br/>";
 
-  if(empty($user)) {
-    $user = isset($_SESSION['user']) ? $_SESSION['user'] : '';
+  if(empty($UserId)) {
+    $UserId = isset($_SESSION['UserId']) ? $_SESSION['UserId'] : '';
     //echo "User Id in Session : " . $_SESSION['user'] . "<br/>";
   }
 
-  if(empty($user)) {
+  if(empty($UserId)) {
     echo "Invalid User Id to proceed. Please supply a valid User Id. <br/>";
     exit();
   }
 
-  $studentDetails = getDetails($user);
+  $studentDetails = getDetails($UserId);
 
   if(empty($studentDetails)) {
-    $_SESSION['profileNotFoundMsg']='No matching profile available for the User [<b>' . $user . '</b>]. Kindly contact Admin.';
+    $_SESSION['profileNotFoundMsg']='No matching profile available for the User [<b>' . $UserId . '</b>]. Kindly contact Admin.';
     header('Location: list.php');
   }
 
@@ -37,7 +37,7 @@
   $address = $studentDetails['address'];
 
 
-  function getDetails($userId)
+  function getDetails($UserId)
 	{
 	    global $pdo;
 
@@ -57,7 +57,7 @@
 	    {
 	        $statement = $pdo->prepare($sql);
 
-	        $statement->bindParam(":userId", $userId);
+	        $statement->bindParam(":userId", $UserId);
 	        $statement->execute();
 
           $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -100,7 +100,7 @@
           Welcome to your <b>Profile</b> page.
       </p>
       <div class="profileData profilePic">
-        <img src='<?php echo DOCUMENT_ROOT ; ?>/data/pics/<?php echo $user;?>.jpg' width=100 height=100/>
+        <img src='<?php echo DOCUMENT_ROOT ; ?>/data/pics/<?php echo $UserId;?>.jpg' width=100 height=100/>
       </div>
       <table class="table table-hover table-bordered profileData profileDataLeft">
         <caption>Profile Data</caption>
@@ -180,5 +180,5 @@
           </tr>
       </table>
 <?php
-  require_once __DIR__ . './../inc/footer.php';
+  require_once __DIR__ . '/../inc/footer.php';
 ?>
