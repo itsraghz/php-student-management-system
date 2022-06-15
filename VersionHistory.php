@@ -44,6 +44,19 @@
               </ul>
             </td>
         </tr>
+        <tr>
+            <td>2.1</td>
+            <td>15 Jun 2022 Wednesday</td>
+            <td>
+                <li>Campus Pic and Logo are in the Home Page</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>Tested in PROD</li>
+              </ul>
+            </td>
+        </tr>
     </tbody>
 </table>
 

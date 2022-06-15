@@ -2,6 +2,37 @@ body {
   font-family: "Calibri", "sans-serif";
   color: black;
 /*  border: 2px solid teal;*/
+  height: 100%;
+  margin : 0;
+}
+
+div.welcomeMsg {
+  left: 20px;
+  margin-left: 150px;
+  font-size: 120%;
+  margin-top: -50px;
+}
+
+div.homePageImage {
+
+  /* The image used */
+  background-image: url("../logo/SRCCET-campus.jpg");
+
+  /* Full height */
+  height: 100%;
+  margin : 0;
+  width: 100%;
+
+  min-height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /*background-size: 100% 100%;*/
+
+  /top: 10;
+  left: 10;
 }
 
 h1.title {
@@ -11,12 +42,29 @@ h1.title {
   text-decoration: underline;
 }
 
+h1.titleHomePage {
+  text-align: center;
+  /*border: 2px solid blue;*/
+  color: navy;
+  text-decoration: underline;
+  position: fixed;
+  top: 250px;
+  left: 550px;
+}
+
 div.welcomeTxt {
   font-family: "Bookman Old Style", "Calibri", "sans-serif";
   width: 350px;
   margin-left: 150px;
   position: absolute;
-  margin-top: 150px;
+  margin-top: 0px;
+  background-image: url("../logo/SRCCET-logo.jpg");//, url("paper.gif");
+  background-repeat: no-repeat;//, repeat;
+  height: 300px; /* You must set a specified height */
+  /*top: 150px;*/
+  filter: brightness(120%);
+  /*background-position: center;*/ /* Center the image */
+  background-size: cover;
 }
 
 p.homePageTxt {
@@ -29,20 +77,23 @@ div.login {
   color: gray;
   width: 300px;
   margin-left: 475px;
-  margin-top: -120px;
+  margin-top: 20px;
 }
 
 h3.login {
   color: maroon;
   text-align: center;
+  /* different flavor to have the title alone on top of the box */
+  /*position: absolute;
+  margin-top: -40px; */
 }
 
 .vl {
   border-left: 6px solid slategray;
-  height: 200px;
+  height: 300px;
   position: absolute;
   margin-left: 400px;
-  margin-top: -120px;
+  margin-top: -20px;
   width: 3px;
 }
 
@@ -67,6 +118,7 @@ input.reset {
 form.loginForm {
   border: 3px solid #ccccff;
   border: 1px solid slategray;
+  position: relative;
 }
 
 div.menu ul li {
@@ -141,7 +193,7 @@ table.versionHistory td {
 .footer {
   position: fixed;
   width: 100%;
-  left: 250px;
+  left: 350px;
   bottom: 0;
   color: gray;
   text-align: center;

@@ -39,7 +39,7 @@ ls -ltr
 
 echo.
 echo -----------------------------------------------------------------
-echo 5. Do a recursive copy of all the contens of Dev Directory Server
+echo 5. Do a recursive copy of all the contents of Dev Directory Server
 echo -----------------------------------------------------------------
 echo.
 cp -r \raghs\prfsnl\github-repos\web-dev-projects\01_student-mgmt-project\00-web-project\* .

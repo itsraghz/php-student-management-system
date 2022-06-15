@@ -1,0 +1,42 @@
+raghs@Raghs-LegionY540-TPIN MINGW64 /c/raghs/prfsnl/github-repos/web-dev-projects/01_student-mgmt-project/00-web-project
+$ ./cmdToCheckInToGitHub.sh
+BASE_DIR :: [/c/raghs/prfsnl/github-repos/php-student-management-system]
+[SUCCESS] Removedthe file - /c/raghs/prfsnl/github-repos/php-student-management-system/db/connection.php
+[SUCCESS] Moved the file -> /c/raghs/prfsnl/github-repos/php-student-management-system/db/connection0.php to /c/raghs/prfsnl/github-repos/php-student-management-system/db/connection.php
+[SUCCESS] DB connection file exists in /c/raghs/prfsnl/github-repos/php-student-management-system/db/connection.php
+[SUCCESS] DB connection db/connection0.php file does not exist
+[SUCCESS] Removed the file -> /c/raghs/prfsnl/github-repos/php-student-management-system/sql/ddl/consoleOutput/output_ParentScript.md
+[SUCCESS] Moved the file -> /c/raghs/prfsnl/github-repos/php-student-management-system/sql/ddl/consoleOutput/output_ParentScript-sample.md to /c/raghs/prfsnl/github-repos/php-student-management-system/sql/ddl/consoleOutput/output_ParentScript.md
+[SUCCESS] Removed the file -> /c/raghs/prfsnl/github-repos/php-student-management-system/sql/ddl/cmdToRunParentSQL.bat
+[SUCCESS] Removed the file -> /c/raghs/prfsnl/github-repos/php-student-management-system/sql/ddl/cmdToRunParentSQL.sh
+[SUCCESS] Moved the file -> /c/raghs/prfsnl/github-repos/php-student-management-system/sql/ddl/cmdToRunParentSQL0.bat to /c/raghs/prfsnl/github-repos/php-student-management-system/sql/ddl/cmdToRunParentSQL.bat
+[SUCCESS] Moved the file -> /c/raghs/prfsnl/github-repos/php-student-management-system/sql/ddl/cmdToRunParentSQL0.sh to /c/raghs/prfsnl/github-repos/php-student-management-system/sql/ddl/cmdToRunParentSQL.sh
+[SUCCESS] The file /c/raghs/prfsnl/github-repos/php-student-management-system/sql/ddl/cmdToRunParentSQL.bat is present
+[SUCCESS] The file /c/raghs/prfsnl/github-repos/php-student-management-system/sql/ddl/cmdToRunParentSQL.sh is present
+[SUCCESS] The file /c/raghs/prfsnl/github-repos/php-student-management-system/sql/ddl/cmdToRunParentSQL0.bat is NOT present
+[SUCCESS] The file /c/raghs/prfsnl/github-repos/php-student-management-system/sql/ddl/cmdToRunParentSQL0.sh is NOT present
+[SUCCESS] Removed the file -> /c/raghs/prfsnl/github-repos/php-student-management-system/sql/dml/1_MySQL-InsertScripts.sql
+[SUCCESS] Moved the file -> /c/raghs/prfsnl/github-repos/php-student-management-system/sql/dml/1_MySQL-InsertScripts-sample.sql to /c/raghs/prfsnl/github-repos/php-student-management-system/sql/dml/1_MySQL-InsertScripts.sql
+On branch feature/v2.1_15Jun2022
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   VersionHistory.php
+        modified:   devUtils/copyFilesToServer.bat
+        modified:   inc/configure.php
+        modified:   inc/header.php
+        modified:   inc/style/style-bootstrap.css
+        modified:   inc/style/style.css
+        modified:   index.php
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        inc/logo/SRCCET-Campus-nowhitespace.jpg
+        inc/logo/SRCCET-Campus.jpg
+        inc/logo/SRCCET-logo.jpg
+        testBgImage.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+raghs@Raghs-LegionY540-TPIN MINGW64 /c/raghs/prfsnl/github-repos/web-dev-projects/01_student-mgmt-project/00-web-project
+$ 
