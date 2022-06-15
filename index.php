@@ -8,130 +8,96 @@
     header('Location: home.php');
   }*/
 ?>
-      <!--<div class="jumbotron">
-        <h1 class="display-4">Hello, world!</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-        <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <p class="lead">
-          <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+      <div class="welcomeFrame">
+        <div class="welcomeMsg">Welcome to the Student Management System (<b>SMS</b>).</div>
+        <div class="welcomeTxt">
         </p>
-      </div>-->
-      <!--<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="d-block w-100" src="..." alt="First slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="..." alt="Second slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="..." alt="Third slide">
-          </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>-->
-
-      <div class="welcomeTxt">
-        Welcome to the <b>Home Page</b> of the Student Management System (<b>SMS</b>).
-      </p>
-      <div class="vl"></div>
-      <div class="login">
-        <?php
-          if(isset($_SESSION['errMsg']) && !empty($_SESSION['errMsg'])) {
-        ?>
-              <span class="errMsg"><?php echo $_SESSION['errMsg'];?></span>
-        <?php
-              unset($_SESSION['errMsg']);
-          } else {
-            if(isset($_SESSION['message']) && !empty($_SESSION['message'])) {
-          ?>
-                <span class="message"><?php echo $_SESSION['message'];?></span>
+        <div class="vl"></div>
+        <div class="login">
           <?php
-                unset($_SESSION['message']);
-                //if($_SESSION) {
-                closeSession();
-                //}
+            if(isset($_SESSION['errMsg']) && !empty($_SESSION['errMsg'])) {
+          ?>
+                <span class="errMsg"><?php echo $_SESSION['errMsg'];?></span>
+          <?php
+                unset($_SESSION['errMsg']);
+            } else {
+              if(isset($_SESSION['message']) && !empty($_SESSION['message'])) {
+            ?>
+                  <span class="message"><?php echo $_SESSION['message'];?></span>
+            <?php
+                  unset($_SESSION['message']);
+                  //if($_SESSION) {
+                  closeSession();
+                  //}
+              }
             }
-          }
-        ?>
-        <form class="loginForm" name="loginForm" action="login.php" method="post">
-          <h3 class="login">Login</h3>
-          <table>
-            <tr>
-                <td>UserName &nbsp;&nbsp;&nbsp;</td>
-                <td>
-                  <input type="text" name="userName" id="userName"
-                  value="hod.ece" placeholder="User Name"
-                  required=true size=20/>
-                </td>
-            </tr>
-            <tr>
-                <td>Password &nbsp;&nbsp;&nbsp;</td>
-                <td>
-                  <input type="password" name="password" id="password"
-                  value="hod.ece" placeholder="Password"
-                  required=true size=20/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                </td>
-                <td>
-                  <input class="login" type="submit" name="Login" value="Login"/>
-                  <input class="reset" type="reset" name="Reset" value="Reset"/>
-                </td>
-            </tr>
-            <?php
-                   $IS_ENV_DEV = strcmp(ENV, "DEV")==0;
-                   //echo "Env configured :: " . ENV . "<br/>";
-            ?>
-            <?php
-
-              if($IS_ENV_DEV && DEV_QUICK_LOGIN)
-              {
-            ?>
+          ?>
+          <form class="loginForm" name="loginForm" action="login.php" method="post">
+            <h3 class="login">Login</h3>
+            <table>
               <tr>
+                  <td>UserName &nbsp;&nbsp;&nbsp;</td>
                   <td>
-                      Populate &rarr;
-                  </td>
-                  <td>
-                      <!--Populate &rarr;
-                      <a href="javascript:populate1();">Raghs</a> &nbsp; | &nbsp;
-                      <a href="javascript:populate2();">Jhanani</a> &nbsp; | &nbsp;
-                      <a href="javascript:clear();">Clear</a>
-                      <br/>-->
-                      <b>Admin</b> &rarr; <br/>
-                      <a href="javascript:populate(0);">Admin</a> &nbsp; | &nbsp;
-                      <a href="javascript:populate(1);">Accounts</a> &nbsp; | &nbsp;<br/>
-                      <a href="javascript:populate(2);">HOD ECE</a> &nbsp; | &nbsp;
-                      <a href="javascript:populate(3);">HOD CSE</a> &nbsp; | &nbsp;
-                      <br/><br/>
-                      <b>Non Admin</b> &rarr;<br/>
-                      <a href="javascript:populate(4);">912518106005</a> &nbsp; | &nbsp;
-                      <a href="javascript:populate(5);">912518106010</a> &nbsp; | &nbsp;
-                      <!--<a href="javascript:populate(6);">Test</a> &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;-->
-                      <br/>
-                      <a href="javascript:clear();">Clear</a>
+                    <input type="text" name="userName" id="userName"
+                    value="hod.ece" placeholder="User Name"
+                    required=true size=20/>
                   </td>
               </tr>
-            <?php
-              }
-            ?>
-          </table>
-        </form>
+              <tr>
+                  <td>Password &nbsp;&nbsp;&nbsp;</td>
+                  <td>
+                    <input type="password" name="password" id="password"
+                    value="hod.ece" placeholder="Password"
+                    required=true size=20/>
+                  </td>
+              </tr>
+              <tr>
+                  <td>
+                  </td>
+                  <td>
+                    <input class="login" type="submit" name="Login" value="Login"/>
+                    <input class="reset" type="reset" name="Reset" value="Reset"/>
+                  </td>
+              </tr>
+              <?php
+                     $IS_ENV_DEV = strcmp(ENV, "DEV")==0;
+                     //echo "Env configured :: " . ENV . "<br/>";
+              ?>
+              <?php
+
+                if($IS_ENV_DEV && DEV_QUICK_LOGIN)
+                {
+              ?>
+                <tr>
+                    <td>
+                        Populate &rarr;
+                    </td>
+                    <td>
+                        <!--Populate &rarr;
+                        <a href="javascript:populate1();">Raghs</a> &nbsp; | &nbsp;
+                        <a href="javascript:populate2();">Jhanani</a> &nbsp; | &nbsp;
+                        <a href="javascript:clear();">Clear</a>
+                        <br/>-->
+                        <b>Admin</b> &rarr; <br/>
+                        <a href="javascript:populate(0);">Admin</a> &nbsp; | &nbsp;
+                        <a href="javascript:populate(1);">Accounts</a> &nbsp; | &nbsp;<br/>
+                        <a href="javascript:populate(2);">HOD ECE</a> &nbsp; | &nbsp;
+                        <a href="javascript:populate(3);">HOD CSE</a> &nbsp; | &nbsp;
+                        <br/><br/>
+                        <b>Non Admin</b> &rarr;<br/>
+                        <a href="javascript:populate(4);">912518106005</a> &nbsp; | &nbsp;
+                        <a href="javascript:populate(5);">912518106010</a> &nbsp; | &nbsp;
+                        <!--<a href="javascript:populate(6);">Test</a> &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;-->
+                        <br/>
+                        <a href="javascript:clear();">Clear</a>
+                    </td>
+                </tr>
+              <?php
+                }
+              ?>
+            </table>
+          </form>
+        </div>
       </div>
 <?php
   //require_once 'inc/footer.php';

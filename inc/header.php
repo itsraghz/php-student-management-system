@@ -56,7 +56,7 @@
     <script src="<?php echo DOCUMENT_ROOT . "/inc/scripts/sms.js"; ?>"></script>
     <script src="<?php echo DOCUMENT_ROOT . "/inc/scripts/populate-defaults.js"; ?>"></script>
   </head>
-  <body>
+  <body <?php echo (strcmp($_SERVER['SCRIPT_NAME'], "/sms/index.php")==0) ? ' class="homePage"' : ' '; ?> >
     <div class="container">
         <div id="menu"> <!-- menu div starts -->
           <?php
@@ -82,8 +82,20 @@
         ?>
       </div><!-- menu div end -->
       <br/><br/>
+      <?php
+        if(strcmp($_SERVER['SCRIPT_NAME'], "/sms/index.php")==0)
+        {
+      ?>
+          <div class="homePageImage">
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <br/><br/><br/><br/>
+            <br/><br/><br/>
+          </div>
+      <?php
+        }
+      ?>
       <div id="content"> <!-- content div starts -->
-        <h1 class="title">Student Management System (SMS)</h1>
+        <h1 class="<?php echo (strcmp($_SERVER['SCRIPT_NAME'], "/sms/index.php")==0) ? 'titleHomePage' : 'title'; ?>">Student Management System (SMS)</h1>
         <h5 class="infoHeader">
             <!-- <b>Database Table   : </b><span class='dbInfo'><?php //echo DB_TBL_EXPENSES;?></span> | -->
             <!--<b>Last Login Time  : </b><span class='dbInfo'><?php //echo isset($_SESSION['login_time'])? $_SESSION['login_time'] : 0;?></span>-->
