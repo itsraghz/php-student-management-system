@@ -80,6 +80,7 @@
           <thead class="thead-light">
               <tr>
                 <th scope="col">Id</th>
+                <th scope="col">User Id</th>
                 <th scope="col">Regn No</th>
                 <th scope="col">Name</th>
                 <th scope="col">DOB</th>
@@ -89,7 +90,7 @@
                 <th scope="col">Email Address</th>
                 <th scope="col">Mobile No</th>
                 <th scope="col">Created Date</th>
-                <th scope="col">Created By</th>
+                <!--<th scope="col">Created By</th>-->
                 <th scope="col">Is Active</th>
               </tr>
             </thead>
@@ -100,15 +101,16 @@
                 <tr>
                     <th scope="row"><?php echo $v['Id'];?></th>
                     <td><?php echo $v['UserId'];?></td>
+                    <td><?php echo $v['RegnNo'];?></td>
                     <td><?php echo $v['Name'];?></td>
                     <td><?php echo $v['DOB'];?></td>
                     <td><?php echo $v['Gender'];?></td>
-                    <td><?php echo $v['Department'];?></td>
+                    <td><?php echo Util::getDepartment($v['DeptId']);?></td>
                     <td><?php echo $v['Year'];?></td>
                     <td><?php echo $v['Email'];?></td>
                     <td><?php echo $v['Mobile'];?></td>
                     <td><?php echo $v['CREATED_DATE'];?></td>
-                    <td><?php echo $v['CREATED_BY'];?></td>
+                    <!--<td><?php //echo $v['CREATED_BY'];?></td>-->
                     <td><?php echo $v['IS_ACTIVE'];?></td>
                 </tr>
               <?php

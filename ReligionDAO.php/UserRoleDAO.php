@@ -130,8 +130,6 @@ class UserRoleDAO extends BaseDAO
     if(!empty($roleNamesArray) || count($roleNamesArray)>=1) {
       if (in_array("Student", $roleNamesArray)) {
         $isUserAStudent=1;
-        /* Fatal error: Cannot break/continue 1 level in C:\installedSoft\xampp\htdocs\sms\dao\UserRoleDAO.php on line 133 */
-        //break;
       }
     }
 

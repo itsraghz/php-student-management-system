@@ -5,13 +5,18 @@
 
   $UserDAO = new UserDAO;
 
+  // Fetch a logger, it will inherit settings from the root logger
+  $log = Logger::getLogger('insert.php');
+
   /*echo "<pre>", print_r($_POST), "</pre>";
   echo "<br/><hr/><br/>";
   echo "</pre>", var_dump($_POST), "</pre>";*/
+  //exit();
 
   //$UserId=$UserDAO->insertUser();
   $UserId=$UserDAO->insertUser();
   //echo "UserId : " . $UserId . "<br/>";
+  $log->info("User Id in Session : " . $UserId);
 
   $UserRoleId=$UserDAO->insertUserRole($UserId);
   //echo "UserRoleId : " . $UserRoleId . "<br/>";

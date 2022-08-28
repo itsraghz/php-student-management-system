@@ -84,5 +84,27 @@ function submitStudentAdd() {
 	} else {
 		alert('Rectify all the errors for the form to be submitted.');
 	}
+}
 
+/**
+ * A good tip I have learned from https://stackoverflow.com/a/9413809/1001242
+ * Query: https://stackoverflow.com/questions/1191113/how-to-ensure-a-select-form-field-is-submitted-when-it-is-disabled
+ */
+function enablePath() {
+	document.getElementById('modeC')
+		.disabled = "";
+	document.getElementById('modeM')
+		.disabled = "";
+	document.getElementById('genderMale')
+		.disabled = "";
+	document.getElementById('genderFemale')
+		.disabled = "";
+	document.getElementById('deptId')
+		.disabled = "";
+	document.getElementById('year')
+		.disabled = "";
+	document.getElementById('religionId')
+		.disabled = "";
+	document.getElementById('communityId')
+		.disabled = "";
 }

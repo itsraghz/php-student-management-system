@@ -30,11 +30,8 @@
         <li class="active"><a href="<?php echo DOCUMENT_ROOT . '/home.php';?>">Home</a></li>
 
         <?php
-          $isUserAStaff = false;
-
-          if(isset($_SESSION['isUserAStaff']) && !empty($_SESSION['isUserAStaff'])) {
-            $isUserAStaff = $_SESSION['isUserAStaff'];
-          }
+          $isUserAStaff = Util::isUserAStaff();
+          $isUserNotAStudent = Util::isUserNotAStudent();
         ?>
         <li class="nav-item dropdown">
            <!-- Reference: https://bootstrap-menu.com/detail-basic-hover.html -->
@@ -43,11 +40,14 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="<?php echo DOCUMENT_ROOT . '/profile/view.php';?>">View Profile</a></li>
               <li><a class="dropdown-item" href="<?php echo DOCUMENT_ROOT . '/profile/edit.php';?>">Edit Profile</a></li>
-              <?php if($isUserAStaff) { ?><li><a class="dropdown-item" href="<?php echo DOCUMENT_ROOT . '/profile/list.php';?>">List Users</a></li><?php }?>
+              <?php if($isUserAStaff || $isUserNotAStudent) { ?>
+                <li><a class="dropdown-item" href="<?php echo DOCUMENT_ROOT . '/profile/delete.php';?>">Delete Profile</a></li>
+                <li><a class="dropdown-item" href="<?php echo DOCUMENT_ROOT . '/profile/list.php';?>">List Users</a></li>
+              <?php }?>
             </ul>
         </li>
         <?php
-          if($isUserAStaff) {
+          if($isUserAStaff || $isUserNotAStudent) {
         ?>
             <li class="nav-item dropdown">
                <!--<a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Student &nbsp;<i class="arrow down"></i></a>-->
@@ -62,9 +62,26 @@
         ?>
 
         <li><a href="#">Attendance</a></li>
-        <li><a href="#">Fees</a></li>
+        <?php
+          if($isUserAStaff || $isUserNotAStudent) {
+        ?>
+            <li class="nav-item dropdown">
+               <!--<a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Student &nbsp;<i class="arrow down"></i></a>-->
+               <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown"><div id="downarrow"><span>Fees</span></div></a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="<?php echo DOCUMENT_ROOT . '/fees/add.php';?>">Add Fees</a></li>
+                  <li><a class="dropdown-item" href="<?php echo DOCUMENT_ROOT . '/fees/list.php';?>">List Fees</a></li>
+                </ul>
+            </li>
+        <?php
+          } else {
+        ?>
+              <li><a href="<?php echo DOCUMENT_ROOT . '/fees/view.php';?>">Fees</a></li>
+        <?php
+          }
+        ?>
         <li><a href="#">Activities</a></li>
-        <?php if($isUserAStaff) { ?>
+        <?php if($isUserAStaff || $isUserNotAStudent) { ?>
           <li class="nav-item dropdown">
              <!--<a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Student &nbsp;<i class="arrow down"></i></a>-->
              <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown"><div id="downarrow"><span>Reports</span></div></a>
@@ -76,9 +93,26 @@
           </li>
         <?php } ?>
         <li><a href="<?php echo DOCUMENT_ROOT . '/versionHistory.php';?>">Version History</a></li>
-        <li><a href="<?php echo DOCUMENT_ROOT . '/logout.php';?>">Logout</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <ul class="nav navbar-nav navbar-right">
+      <li>
+          <a href="#"><span class="glyphicon glyphicon-user"></span>
+            <span style="color: #76dde3; font-weight: bold;">
+              <?php echo $_SESSION['user'] ;?>
+              <?php echo isset($_SESSION['userName']) ? " | " . $_SESSION['userName'] : '';?>
+            </span>
+          </a>
+      </li>
+      <!--<li><a href="<?php //echo DOCUMENT_ROOT . '/logout.php';?>">Logout</a></li>-->
+      <li>
+        <a href="<?php echo DOCUMENT_ROOT . '/logout.php';?>">
+          <span class="glyphicon glyphicon-log-out"></span> Logout
+        </a>
+      </li>
+      <!--<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <p class="navbar-text">Some text</p>-->
+    </ul>
     </div><!--/.nav-collapse -->
   </div>
 </nav>

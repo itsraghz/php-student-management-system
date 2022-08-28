@@ -7,14 +7,18 @@ class TblStudentBO extends BaseBO {
   private $Id;
   private $UserId;
   private $RegnNo;
+  private $ModeId;
+  private $Mode;
   private $Name;
   private $DOB;
   private $Gender;
-  private $Department;
+  private $DeptId;
   private $Year;
   private $AadhaarNo;
   private $FathersName;
   private $MothersName;
+  private $ReligionId;
+  private $CommunityId;
   private $Email;
   private $Mobile;
   private $Address;
@@ -49,8 +53,9 @@ class TblStudentBO extends BaseBO {
       return "[StudentBO] Id : " . $this->getId()
           . "| UserId : " . $this->getUserId()
           . "| RegnNo : " . $this->getRegnNo()
+          . "| Mode : " . $this->getMode()
           . "| Gender : " . $this->getGender()
-          . "| Dept : " . $this->getDepartment()
+          . "| Dept : " . $this->getDeptId()
           . "| Year : " . $this->getYear();
   }
 
@@ -81,14 +86,17 @@ class TblStudentBO extends BaseBO {
 		$this->setId($row['Id']);
 		$this->setUserId($row['UserId']);
 		$this->setRegnNo($row['RegnNo']);
+    $this->setModeId($row['ModeId']);
     $this->setName($row['Name']);
     $this->setDOB($row['DOB']);
     $this->setGender($row['Gender']);
-    $this->setDepartment($row['Department']);
+    $this->setDeptId($row['DeptId']);
     $this->setYear($row['Year']);
     $this->setAadhaarNo($row['AadhaarNo']);
     $this->setFathersName($row['FathersName']);
     $this->setMothersName($row['MothersName']);
+    $this->setReligionId($row['ReligionId']);
+    $this->setCommunityId($row['CommunityId']);
     $this->setEmail($row['Email']);
     $this->setMobile($row['Mobile']);
     $this->setAddress($row['Address']);
@@ -166,6 +174,22 @@ class TblStudentBO extends BaseBO {
       $this->RegnNo=$RegnNo;
   }
 
+  public function getModeId() {
+      return $this->ModeId;
+  }
+
+  public function setModeId($ModeId) {
+      $this->ModeId=$ModeId;
+  }
+
+  public function getMode() {
+      return $this->Name;
+  }
+
+  public function setMode($Mode) {
+      $this->Mode=$Mode;
+  }
+
   public function getDOB() {
       return $this->DOB;
   }
@@ -182,12 +206,12 @@ class TblStudentBO extends BaseBO {
       $this->Gender=$Gender;
   }
 
-  public function getDepartment() {
-      return $this->Department;
+  public function getDeptId() {
+      return $this->DeptId;
   }
 
-  public function setDepartment($Department) {
-      $this->Department=$Department;
+  public function setDeptId($DeptId) {
+      $this->DeptId=$DeptId;
   }
 
   public function getYear() {
@@ -220,6 +244,23 @@ class TblStudentBO extends BaseBO {
 
   public function setMothersName($MothersName) {
       $this->MothersName=$MothersName;
+  }
+
+  public function getReligionId() {
+      return $this->ReligionId;
+  }
+
+  public function setReligionId($ReligionId) {
+      $this->ReligionId=$ReligionId;
+  }
+
+  public function getCommunityId() {
+      return $this->CommunityId;
+  }
+
+  public function setCommunityId($CommunityId) {
+      $CommunityId = (!empty($CommunityId) && $CommunityId!=NULL) ? $CommunityId : 0;
+      $this->CommunityId=$CommunityId;
   }
 
   public function getEmail() {

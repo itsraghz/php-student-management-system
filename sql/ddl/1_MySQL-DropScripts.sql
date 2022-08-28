@@ -1,5 +1,5 @@
 -- ==========================================================================================
---                     SQL Scripts for the DDL - Drop Tables, Database 
+--                     SQL Scripts for the DDL - Drop Tables, Database
 -- ==========================================================================================
 --
 -- Version History
@@ -23,11 +23,14 @@ USE SMS;
 
 -- Drop the table in the reverse order of dependency
 
+DROP TABLE IF EXISTS SMS.TblFee;
+DROP TABLE IF EXISTS SMS.TblFeeMaster;
 DROP TABLE IF EXISTS SMS.TblStudent;
 DROP TABLE IF EXISTS SMS.TblUserRole;
 DROP TABLE IF EXISTS SMS.TblRole;
 DROP TABLE IF EXISTS SMS.TblUser;
 DROP TABLE IF EXISTS SMS.TblDepartment;
+DROP TABLE IF EXISTS SMS.TblAdmission;
 
 -- \! echo "... All the tables are dropped from the Database [SMS] ....";
 SELECT  "... All the tables are dropped from the Database [SMS] ...." AS "DEBUG_MSG" FROM DUAL;

@@ -75,6 +75,18 @@
           unset($_SESSION['profileNotFoundMsg']);
         }
       ?>
+      <?php
+        if(isset($_SESSION['verifyProfileErrorMsg']) && !empty($_SESSION['verifyProfileErrorMsg'])) {
+          echo "<center><span style='color: red'>" . $_SESSION['verifyProfileErrorMsg'] . "</span></center>";
+          unset($_SESSION['verifyProfileErrorMsg']);
+        }
+      ?>
+      <?php
+        if(isset($_SESSION['successMsg']) && !empty($_SESSION['successMsg'])) {
+          echo "<center><span style='color: green'>" . $_SESSION['successMsg'] . "</span></center>";
+          unset($_SESSION['successMsg']);
+        }
+      ?>
       <!-- Select dropdown -->
       <div class="d-flex flex-row-reverse bd-highlight mb-3">
           <form action="list.php" method="post">
@@ -139,6 +151,20 @@
                     <a href='view.php?UserId=<?php echo $v['UserId'];?>'><?php echo $v['Id'];?></a>
                     &nbsp;|&nbsp;
                     <a href='edit.php?UserId=<?php echo $v['Id'];?>'>E</a>
+                    &nbsp;|&nbsp;
+                    <?php
+                      if(strcmp($v['IS_ACTIVE'], 'Y')==0) {
+                    ?>
+                        <a href='delete.php?UserId=<?php echo $v['UserId'];?>'>
+                          <span style="color: red;">D</span>
+                        </a>
+                    <?php
+                      } else {
+                    ?>
+                        <span style="color: grey;">D</span>
+                    <?php
+                      }
+                    ?>
                   </th>
                   <td><?php echo $v['UserId'];?></td>
                   <td><?php echo $v['CREATED_DATE'];?></td>

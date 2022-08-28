@@ -39,10 +39,11 @@
 	define("ENV", "DEV");
 	//define("ENV", "PROD");
 
-	define("DEV_QUICK_LOGIN", false);
-	//define("DEV_QUICK_LOGIN", true);
+	//define("DEV_QUICK_LOGIN", false);
+	define("DEV_QUICK_LOGIN", true);
 
-	define("VERSION_INFO", "(V 2.1) | 15 Jun 2022 Wednesday");
+	//define("VERSION_INFO", "(V 2.1) | 15 Jun 2022 Wednesday");
+	define("VERSION_INFO", "(V 2.2) | 07 Aug 2022 Sunday");
 
 	/** Dev Related Settings - NEED NOT GO TO PROD */
 	error_reporting(E_ALL);

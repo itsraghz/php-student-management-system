@@ -5,9 +5,9 @@ var canAlert = true;
 
 //alertMsg('populate-defaults.js loaded');
 
-var userIds = ["Admin", "Accounts", "hod.ece", "hod.cse", "912518106005", "912518106018"];
+var userIds = ["Admin", "Accounts", "hod.ece", "hod.cse", "912518106005", "912518106010"];
 //sabarishcse01@gmail.com -> sabarishmahalingam@gmail.com
-var passwords = ["Admin", "Accounts", "hod.ece", "hod.cse", "912518106005", "912518106018"];
+var passwords = ["Admin", "Accounts", "hod.ece", "hod.cse", "912518106005", "912518106010"];
 
 function alertMsg(msg) {
 	if (canAlert) {

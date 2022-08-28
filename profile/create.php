@@ -79,6 +79,19 @@ require_once __DIR__ . '/../inc/header.php';
           </tr>
           <tr>
               <td>
+                <label for="modeId">Admission Mode</label> <span class='mandatory'>*</span>
+              </td>
+              <td>
+                  <select class="form-select" aria-label="ModeId"
+                      id="modeId" name="ModeId" required>
+                    <option selected>--SELECT--</option>
+                    <option id="1" value="1" <?php if($IS_ENV_DEV) echo 'selected';?>>Counselling</option>
+                    <option id="2" value="2">Management</option>
+                  </select>
+              </td>
+          </tr>
+          <tr>
+              <td>
                 <label for="regnNo">Registration Number</label> <span class='mandatory'>*</span>
               </td>
               <td>
@@ -118,17 +131,17 @@ require_once __DIR__ . '/../inc/header.php';
           </tr>
           <tr>
               <td>
-                <label for="department">Department</label> <span class='mandatory'>*</span>
+                <label for="deptId">Department</label> <span class='mandatory'>*</span>
               </td>
               <td>
                   <select class="form-select" aria-label="Department"
-                      id="department" name="Department" required>
+                      id="deptId" name="DeptId" required>
                     <option selected>--SELECT--</option>
-                    <option id="1" value="Mech">Mechanical</option>
-                    <option id="2" value="Civil">Civil</option>
-                    <option id="3" value="EEE">Electrical and Eletronics</option>
-                    <option id="4" value="ECE" <?php if($IS_ENV_DEV) echo 'selected';?>>Eletronics and Communication</option>
-                    <option id="5" value="CSE">Computer Science</option>
+                    <option id="1" value="1" <?php if($IS_ENV_DEV) echo 'selected';?>>Eletronics and Communication</option>
+                    <option id="2" value="2">Electrical and Eletronics</option>
+                    <option id="3" value="3">Computer Science</option>
+                    <option id="4" value="4">Mechanical</option>
+                    <option id="5" value="5">Civil</option>
                   </select>
               </td>
           </tr>
@@ -175,6 +188,40 @@ require_once __DIR__ . '/../inc/header.php';
                 <input class="form-control" type=text name="MothersName" id="mothersName"
                   size="50" required=true value="<?php if($IS_ENV_DEV) echo 'Chitra.G';?>"
                   placeholder="Mother's Name of the Student"/>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                <label for="religionId">Religion</label> <span class='mandatory'>*</span>
+              </td>
+              <td>
+                  <select class="form-select" aria-label="Religion"
+                      id="religionId" name="ReligionId" required>
+                    <option selected>--SELECT--</option>
+                    <option id="1" value="1" <?php if($IS_ENV_DEV) echo 'selected';?>>Hindu</option>
+                    <option id="2" value="2">Islam</option>
+                    <option id="3" value="3">Christian</option>
+                    <option id="4" value="4">Jain</option>
+                    <option id="5" value="5">Sikh</option>
+                  </select>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                <label for="communityId">Community</label> <span class='mandatory'>*</span>
+              </td>
+              <td>
+                  <select class="form-select" aria-label="Community"
+                      id="communityId" name="CommunityId" required>
+                    <option selected>--SELECT--</option>
+                    <option id="0" value="0">No Community</option>
+                    <option id="1" value="1" <?php if($IS_ENV_DEV) echo 'selected';?>>Chettiyar</option>
+                    <option id="2" value="2">Mudaliyar</option>
+                    <option id="3" value="3">Nadar</option>
+                    <option id="4" value="4">Thevar</option>
+                    <option id="5" value="5">Vallambar</option>
+                    <option id="6" value="6">Ambalam</option>
+                  </select>
               </td>
           </tr>
           <tr>

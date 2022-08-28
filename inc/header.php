@@ -6,6 +6,7 @@
   require_once __DIR__ . '/global.php';
   //require_once __DIR__ . './../db/connection.php';
   require_once __DIR__ . '/../db/connection.php';
+  require_once __DIR__ . '/../util/Util.php';
 
   /* PROD Server */
   /* ----------- */
@@ -96,6 +97,14 @@
       ?>
       <div id="content"> <!-- content div starts -->
         <h1 class="<?php echo (strcmp($_SERVER['SCRIPT_NAME'], "/sms/index.php")==0) ? 'titleHomePage' : 'title'; ?>">Student Management System (SMS)</h1>
+        <?php
+          if(strcmp($_SERVER['SCRIPT_NAME'], "/sms/index.php")!=0)
+          {
+        ?>
+              <span class="collegeLogo"></span>
+        <?php
+          }
+        ?>
         <h5 class="infoHeader">
             <!-- <b>Database Table   : </b><span class='dbInfo'><?php //echo DB_TBL_EXPENSES;?></span> | -->
             <!--<b>Last Login Time  : </b><span class='dbInfo'><?php //echo isset($_SESSION['login_time'])? $_SESSION['login_time'] : 0;?></span>-->

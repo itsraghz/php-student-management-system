@@ -31,7 +31,7 @@ div.homePageImage {
   background-size: cover;
   /*background-size: 100% 100%;*/
 
-  /top: 10;
+  top: 10;
   left: 10;
 }
 
@@ -50,6 +50,16 @@ h1.titleHomePage {
   position: fixed;
   top: 250px;
   left: 550px;
+}
+
+span.collegeLogo {
+  background-image: url("../logo/SRCCET-logo.jpg");//, url("paper.gif");
+  background-repeat: no-repeat;//, repeat;
+  height: 300px; /* You must set a specified height */
+  /*top: 150px;*/
+  filter: brightness(120%);
+  /*background-position: center;*/ /* Center the image */
+  background-size: cover;
 }
 
 div.welcomeTxt {
@@ -311,4 +321,9 @@ footer {
 
 .mandatory {
   color: red;
+}
+
+.greetingUser {
+   color: yellow;
+   font-weight: bold;
 }

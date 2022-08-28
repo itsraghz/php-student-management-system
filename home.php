@@ -16,6 +16,13 @@
             echo $welcomeMsg;
           ?>
       </p>
+      <?php
+        if(isset($_SESSION['errorMsg']) && !empty($_SESSION['errorMsg'])) {
+          echo "<center><span style='color: red'>" . $_SESSION['errorMsg'] . "</span></center>";
+          unset($_SESSION['errorMsg']);
+        }
+      ?>
+      <pre><?php echo print_r($_SESSION); ?></pre>
 <?php
   //require_once 'inc/footer.php';
   require_once __DIR__ . '/inc/footer.php';

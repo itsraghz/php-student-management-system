@@ -61,7 +61,7 @@ class UserDAO extends BaseDAO
 
 	    //$sql = "SELECT * from TblUser where UserId=:userId and Password=:password";
       //$sql = "SELECT Name from TblUser a, TblStudent b where a.UserId=b.RegnNo AND a.UserId=:userId and a.Password=:password";
-      $sql = "SELECT * from TblUser a where a.UserId=:userId and a.Password=:password and IS_ACTIVE='Y'";
+      $sql = "SELECT * from TblUser a where a.UserId=:userId and a.Password=:password";
 	    //$sql = "SELECT * from TblMember where UserId=:userId";
 
       //echo "<b>Query : </b> " . $sql . "<br/>";
@@ -151,7 +151,17 @@ class UserDAO extends BaseDAO
 
           $statement->execute();
 
+          //$row = $query->fetch();
+          /*
+          while (($row = $statement->fetchAll(PDO::FETCH_ASSOC)) !== false) {
+              echo $row['UserId'] . '<br>';
+              $isValid = true;
+          }
+          */
+
           $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+          //print_r($sth->execute());
 
           foreach($rows as $row) {
               //printf("$row[0] $row[1] $row[2]\n");
@@ -159,6 +169,11 @@ class UserDAO extends BaseDAO
               //echo $row['UserId'];
               $isValid = true;
           }
+
+          /*while($rows!==false) {
+            echo $rows['UserId'];
+            $isValid = true;
+          }*/
 
           //$pdo = null;
       }
@@ -186,19 +201,14 @@ class UserDAO extends BaseDAO
 
       /*echo "<b>UserName : </b> " . $UserName . "<br/>";
       echo "<b>Password : </b> " . $Password . "<br/>";*/
-      $this->log->debug("insertUser() - UserName : [$UserName], Password : [$Password]");
 
 	    //$sql = "SELECT * from TblUser where UserId=:userId and Password=:password";
-      $sql = "INSERT INTO TblUser (UserId, Password, CREATED_BY) VALUES (:userName, :password, :createdBy)";
+      $sql = "INSERT INTO TblUser (UserId, Password) VALUES (:userName, :password)";
 	    //$sql = "SELECT * from TblMember where UserId=:userId";
 
       $this->log->debug("Query : [ " . $sql . "]");
 
-      $createdBy = isset($_SESSION['user']) ? $_SESSION['user'] : '';
-      $this->log->debug('insertUser() - createdBy : ' . $createdBy);
-
       $IdInserted = 0;
-      $ExecResult = null;
 
 	    try
 	    {
@@ -208,24 +218,12 @@ class UserDAO extends BaseDAO
 
           $statement->bindParam(":userName", $UserName);
    	      $statement->bindParam(":password", $Password);
-          $statement->bindParam(":createdBy", $createdBy);
           //print_r($statement->execute());
-          $ExecResult = $statement->execute();
-          $count = $statement->rowCount();
-
+          $statement->execute();
           $IdInserted = $pdo->lastInsertId();
           //echo "<i>Inserted into the TblUser, with Id : <b>" . $IdInserted . "</b></i> <br/>";
           $this->log->debug("IdInserted : [ " . $IdInserted . "]");
           //$pdo->commit();
-
-          $errorCode= $statement->errorCode();
-          $errorInfoArray = $statement->errorInfo();
-
-          //echo "<b>RowCount : </b> " . $count . "<br/>";
-          $this->log->debug('insertUser() - ExecResult : ' . $ExecResult);
-          $this->log->debug('insertUser() - RowCount : ' . $count);
-          $this->log->debug('insertUser() - errorCode : ' . $errorCode);
-          $this->log->debug('insertUser() - errorInfoArray : ' . print_r($errorInfoArray, 1));
 	    }
 	    catch(PDOException $e)
 	    {
@@ -242,10 +240,9 @@ class UserDAO extends BaseDAO
       return $IdInserted;
 	}
 
+
   function insertUserRole($UserId)
   {
-      $this->log->debug('insertUserRole() - ENTER');
-
       global $pdo;
 
       /*$RegnNo = $_POST['RegnNo'];
@@ -256,14 +253,10 @@ class UserDAO extends BaseDAO
       //echo "insertUserRole() - <b>UserId : </b> " . $UserId . "<br/>";
 
       //$sql = "SELECT * from TblUser where UserId=:userId and Password=:password";
-      $sql = "INSERT INTO TblUserRole (UserId, RoleId, CREATED_BY) VALUES (:userId, 4, :createdBy)"; //4 - Student
+      $sql = "INSERT INTO TblUserRole (UserId, RoleId) VALUES (:userId, 4)"; //4 - Student
       //$sql = "SELECT * from TblMember where UserId=:userId";
 
-      $createdBy = isset($_SESSION['user']) ? $_SESSION['user'] : '';
-      $this->log->debug('insertUserRole() - createdBy : ' . $createdBy);
-
       $IdInserted = 0;
-      $ExecResult = null;
 
       try
       {
@@ -272,33 +265,18 @@ class UserDAO extends BaseDAO
           $statement = $pdo->prepare($sql);
 
           $statement->bindParam(":userId", $UserId);
-          $statement->bindParam(":createdBy", $createdBy);
           //print_r($statement->execute());
-          $ExecResult = $statement->execute();
-          $count = $statement->rowCount();
-
+          $statement->execute();
           $IdInserted = $pdo->lastInsertId();
           //echo "<i>Inserted into the TblUserRole, with Id : <b>" . $IdInserted . "</b></i> <br/>";
           //$pdo->commit();
-
-          $errorCode= $statement->errorCode();
-          $errorInfoArray = $statement->errorInfo();
-
-          //echo "<b>RowCount : </b> " . $count . "<br/>";
-          $this->log->debug('insertUserRole() - ExecResult : ' . $ExecResult);
-          $this->log->debug('insertUserRole() - RowCount : ' . $count);
-          $this->log->debug('insertUserRole() - errorCode : ' . $errorCode);
-          $this->log->debug('insertUserRole() - errorInfoArray : ' . print_r($errorInfoArray, 1));
       }
       catch(PDOException $e)
       {
         //[TODO] Proper way of error handling.
           echo '<br/>ERROR: ' . $e->getMessage();
           //$pdo->rollback();
-          $this->log->error('ERROR : ' . $e->getMessage());
       }
-
-      $this->log->debug('insertUserRole() - EXIT');
 
       //return $isValid;
       //return $userIdFromDB;
@@ -307,8 +285,6 @@ class UserDAO extends BaseDAO
 
   function insertStudent()
 	{
-    $this->log->debug('insertStudent() - ENTER');
-
     /*echo "<br/>";
     echo "<b>POST Array contents :: </b><br/>";
     print_r($_POST);
@@ -324,30 +300,15 @@ class UserDAO extends BaseDAO
     $AadhaarNo = $_POST['AadhaarNo'];
     $FathersName = $_POST['FathersName'];
     $MothersName = $_POST['MothersName'];
-    $ReligionId = $_POST['ReligionId'];
-    $CommunityId = $_POST['CommunityId'];
     $Email = $_POST['Email'];
     $Mobile = $_POST['Mobile'];
     $Address = $_POST['Address'];
     $Id = $_POST['UserId'];
 
-    $createdBy = isset($_SESSION['user']) ? $_SESSION['user'] : '';
-    $this->log->debug('insertStudent() - createdBy : ' . $createdBy);
-
-    $this->log->debug('insertStudent() - \$_POST - CommunityId : ' . $CommunityId);
-
-    /* In case the actual / updated Community Id is 0 from UI, it must be stored as Null in DB */
-    //if(!empty($CommunityId) && strcmp($CommunityId, '0')==0) {
-    if(strcmp($CommunityId, '0')==0) {
-      $this->log->debug("insertStudent() - CommunityId is NOT EMPTY but Zero!");
-      $CommunityId = NULL;
-    }
-
-    $this->log->debug('insertStudent() - (Computed) CommunityId : ' . $CommunityId);
-
     //echo "insertStudent() - UserId : " . $Id . "<br/>";
 
     global $pdo;
+
 
     /*$sql = "INSERT INTO TblStudent (`UserId`, `RegnNo`, `Name`, `DOB`, `Gender`,`DeptId`, `Year`, `AadhaarNo`,
       `FathersName`, `MothersName`, `Email`, `Mobile`, `Address`)
@@ -355,9 +316,9 @@ class UserDAO extends BaseDAO
           ':fathersName', ':mothersName', ':email', ':mobile', ':address')";*/
 
     $sql = "INSERT INTO TblStudent (UserId, RegnNo, ModeId, Name, DOB, Gender, DeptId, Year, AadhaarNo,
-            FathersName, MothersName, ReligionId, CommunityId, Email, Mobile, Address, CREATED_BY)
+            FathersName, MothersName, Email, Mobile, Address)
           VALUES (:userId, :regnNo, :modeId, :name, :dob, :gender, :deptId, :year, :aadhaarNo,
-            :fathersName, :mothersName, :religionId, :communityId, :email, :mobile, :address, :createdBy)";
+            :fathersName, :mothersName, :email, :mobile, :address)";
 
     /*echo "<br/>";
     echo "<b>SQL Query :: </b> " . $sql . "<br/>";
@@ -365,10 +326,6 @@ class UserDAO extends BaseDAO
 
     //$this->insertUser($RegnNo, $RegnNo);
     //$this->insertUserRole($RegnNo);
-
-    $this->log->debug('insertStudent() - SQL : ' . $sql);
-
-    $this->log->debug('insertStudent () - $_POST Array : ' . print_r($_POST, 1));
 
     $ExecResult = false;
 
@@ -388,32 +345,19 @@ class UserDAO extends BaseDAO
         $statement->bindParam(":aadhaarNo", $AadhaarNo);
         $statement->bindParam(":fathersName", $FathersName);
         $statement->bindParam(":mothersName", $MothersName);
-        $statement->bindParam(":religionId", $ReligionId);
-        $statement->bindParam(":communityId", $CommunityId);
         $statement->bindParam(":email", $Email);
         $statement->bindParam(":mobile", $Mobile);
         $statement->bindParam(":address", $Address);
-        $statement->bindParam(":createdBy", $createdBy);
 
         $ExecResult = $statement->execute();
         $count = $statement->rowCount();
 
         //echo "<b>RowCount : </b> " . $count . "<br/>";
-
-        $errorCode= $statement->errorCode();
-        $errorInfoArray = $statement->errorInfo();
-
-        //echo "<b>RowCount : </b> " . $count . "<br/>";
-        $this->log->debug('insertStudent() - ExecResult : ' . $ExecResult);
-        $this->log->debug('insertStudent() - RowCount : ' . $count);
-        $this->log->debug('insertStudent() - errorCode : ' . $errorCode);
-        $this->log->debug('insertStudent() - errorInfoArray : ' . print_r($errorInfoArray, 1));
       }
       catch(PDOException $e)
       {
-          //[TODO] Proper way of error handling.
+        //[TODO] Proper way of error handling.
           echo 'ERROR: ' . $e->getMessage();
-          $this->log->error('ERROR : ' . $e->getMessage());
       }
 
       /*if($ExecResult) {
@@ -422,142 +366,16 @@ class UserDAO extends BaseDAO
         echo "<br/><font color=red><i>Failed to Insert the details into the TblStudent...</i></font> <br/>";
       }*/
 
-      $this->log->debug('insertStudent() - EXIT');
-
       return $ExecResult;
-	}
-
-  function UnUsedRefActivateUser($UserId)
-	{
-      $this->log->debug('activateUser() - ENTER, UserId : [' . $UserId . ']');
-
-	    global $pdo;
-
-      $sql = "UPDATE TblUser SET IS_ACTIVE='Y' WHERE USERId=:userId";
-
-      $this->log->debug('activateUser() - SQL : ' . $sql);
-      $this->log->debug('activateUser() - $_POST Array : ' . print_r($_POST, 1));
-
-      $ExecResult = false;
-
-	    try
-	    {
-          //$pdo->beginTransaction();
-	        $statement = $pdo->prepare($sql);
-
-          $statement->bindParam(":userId", $UserId);
-
-          $ExecResult = $statement->execute();
-          //$pdo->commit();
-          $count = $statement->rowCount();
-
-          echo "<b>RowCount : </b> " . $count . "<br/>";
-          $this->log->debug('activateUser() - RowCount : ' + $count);
-
-          $errorCode= $statement->errorCode();
-          $errorInfoArray = $statement->errorInfo();
-
-          //echo "<b>RowCount : </b> " . $count . "<br/>";
-          $this->log->debug('activateUser() - ExecResult : ' . $ExecResult);
-          $this->log->debug('activateUser() - RowCount : ' . $count);
-          $this->log->debug('activateUser() - errorCode : ' . $errorCode);
-          $this->log->debug('activateUser() - errorInfoArray : ' . print_r($errorInfoArray, 1));
-
-	    }
-	    catch(PDOException $e)
-	    {
-	    	//[TODO] Proper way of error handling.
-          //$pdo->rollback();
-	        echo '<br/>ERROR: ' . $e->getMessage();
-          $this->log->error('ERROR : ' . $e->getMessage());
-	    }
-
-      $this->log->debug('activateUser() - EXIT');
-
-      /*if($ExecResult) {
-        echo "<br/><i>Successfully Activated the User Account.</i> <br/>";
-      } else {
-        echo "<br/><font color=red><i>Failed to activte the User...</i></font> <br/>";
-      }*/
-
-      return $ExecResult;
-	}
-
-  function activateUser($UserId)
-	{
-    $this->log->debug("activateUser() - ENTER, UserId : [$UserId]");
-    return $this->updateUserActiveStatus($UserId, 'Y');
-  }
-
-  function deactivateUser($UserId)
-	{
-    $this->log->debug("deactivateUser() - ENTER, UserId : [$UserId]");
-    return $this->updateUserActiveStatus($UserId, 'N');
-  }
-
-  function updateUserActiveStatus($UserId, $Status)
-	{
-      $this->log->debug('updateUserActiveStatus() - ENTER');
-      $this->log->debug("updateUserActiveStatus() - UserId : [$UserId], Status : [$Status]");
-
-	    global $pdo;
-
-      $sql = "UPDATE TblUser SET `IS_ACTIVE`=:status, `MODIFIED_BY`=:modifiedBy WHERE USERId=:userId";
-
-      $this->log->debug('updateUserActiveStatus() - SQL : ' . $sql);
-      //$this->log->debug('updateUserActiveStatus() - $_POST Array : ' . print_r($_POST, 1));
-
-      $ExecResult = false;
-
-      $modifiedBy = isset($_SESSION['user']) ? $_SESSION['user'] : '';
-      $this->log->debug("updateUserActiveStatus() - modifiedBy : [$modifiedBy]");
-
-	    try
-	    {
-          //$pdo->beginTransaction();
-	        $statement = $pdo->prepare($sql);
-
-          $statement->bindParam(":status", $Status);
-          $statement->bindParam(":modifiedBy", $modifiedBy);
-          $statement->bindParam(":userId", $UserId);
-
-          $ExecResult = $statement->execute();
-          //$pdo->commit();
-          $count = $statement->rowCount();
-
-          echo "<b>RowCount : </b> " . $count . "<br/>";
-          $this->log->debug('updateUserActiveStatus() - RowCount : ' + $count);
-
-          $errorCode= $statement->errorCode();
-          $errorInfoArray = $statement->errorInfo();
-
-          //echo "<b>RowCount : </b> " . $count . "<br/>";
-          $this->log->debug('updateUserActiveStatus() - ExecResult : ' . $ExecResult);
-          $this->log->debug('updateUserActiveStatus() - RowCount : ' . $count);
-          $this->log->debug('updateUserActiveStatus() - errorCode : ' . $errorCode);
-          $this->log->debug('updateUserActiveStatus() - errorInfoArray : ' . print_r($errorInfoArray, 1));
-	    }
-	    catch(PDOException $e)
-	    {
-	    	//[TODO] Proper way of error handling.
-          //$pdo->rollback();
-	        echo '<br/>ERROR: ' . $e->getMessage();
-          $this->log->error('ERROR : ' . $e->getMessage());
-	    }
-
-      $this->log->debug('updateUserActiveStatus() - EXIT');
-
-      /*if($ExecResult) {
-        echo "<br/><i>Successfully Activated the User Account.</i> <br/>";
-      } else {
-        echo "<br/><font color=red><i>Failed to activte the User...</i></font> <br/>";
-      }*/
-
-      return $ExecResult;
-	}
+	}  
 
   function updateStudent()
 	{
+    /*echo "<br/>";
+    echo "<b>POST Array contents :: </b><br/>";
+    print_r($_POST);
+    echo "<br/>";*/
+
     $this->log->debug('updateStudent() - ENTER');
 
     $Name = isset($_POST['Name']) ? $_POST['Name'] : '';
@@ -565,44 +383,21 @@ class UserDAO extends BaseDAO
     $ModeId = isset($_POST['ModeId']) ? $_POST['ModeId'] : '';
     $DOB = isset($_POST['DOB']) ? $_POST['DOB'] : '';
     $Gender = isset($_POST['Gender']) ? $_POST['Gender'] : '';
-    /*
-     * Though the UI controls may be disabled based on the role, the value gets
-     * submitted due to the hack applied in the enablePath() method in sms.js file,
-     * where the selected UI controls are enabled just before the form gets submitted
-     *
-     * Applicable to all such UI controls (checkbox, dropdown etc.,)
-     * 
-     * Reference : StackOverflow link : https://stackoverflow.com/a/9413809/1001242
-     */
     $DeptId = isset($_POST['DeptId']) ? $_POST['DeptId'] : '';
     $Year = isset($_POST['Year']) ? $_POST['Year'] : '';
     $AadhaarNo = isset($_POST['AadhaarNo']) ? $_POST['AadhaarNo'] : '';
     $FathersName = isset($_POST['FathersName']) ? $_POST['FathersName'] : '';
     $MothersName = isset($_POST['MothersName']) ? $_POST['MothersName'] : '';
-    $ReligionId = isset($_POST['ReligionId']) ? $_POST['ReligionId'] : '';
-    $CommunityId = isset($_POST['CommunityId']) ? $_POST['CommunityId'] : '';
     $Email = isset($_POST['Email']) ? $_POST['Email'] : '';
     $Mobile = isset($_POST['Mobile']) ? $_POST['Mobile'] : '';
     $Address = isset($_POST['Address']) ? $_POST['Address'] : '';
-    $IsActive = isset($_POST['IsActive']) ? $_POST['IsActive'] : '';
     $UserId = isset($_POST['UserId']) ? $_POST['UserId'] : '';
 
     echo "updateStudent() - UserId : " . $UserId . "<br/>";
     $this->log->debug('updateStudent() - UserId : ' . $UserId);
 
-    echo "updateStudent() - IsActive : " . $IsActive . "<br/>";
-    $this->log->debug('updateStudent() - IsActive : ' . $IsActive);
-
     $modifiedBy = isset($_SESSION['user']) ? $_SESSION['user'] : '';
     $this->log->debug('updateStudent() - modifiedBy : ' . $modifiedBy);
-
-    /* In case the actual / updated Community Id is 0 from UI, it must be stored as Null in DB */
-    //if(!empty($CommunityId) && strcmp($CommunityId, '0')==0) {
-    if(strcmp($CommunityId, '0')==0) {
-      $this->log->debug("updateStudent() - CommunityId is NOT EMPTY but Zero!");
-      $CommunityId = NULL;
-    }
-    $this->log->debug('updateStudent() - (Computed) CommunityId : ' . $CommunityId);
 
     global $pdo;
 
@@ -618,21 +413,18 @@ class UserDAO extends BaseDAO
                 `RegnNo`=:regnNo, `ModeId`=:modeId, `Name`=:name, `DOB`=:dob,
                 `Gender`=:gender, `DeptId`=:deptId, `Year`=:year, `AadhaarNo`=:aadhaarNo,
                 `FathersName`=:fathersName, `MothersName`=:mothersName,
-                `ReligionId`=:religionId, `CommunityId`=:communityId,
                 `Email`=:email, `Mobile`=:mobile, `Address`=:address,
-                `MODIFIED_BY`=:modifiedBy, `IS_ACTIVE`=:isActive
+                `MODIFIED_BY`=:modifiedBy
             WHERE
                 UserId=:userId";
 
-    $this->log->debug('updateStudent() - SQL : ' . $sql);
-
-    $this->log->debug('updateStudent() - $_POST Array : ' . print_r($_POST, 1));
+    $this->log->debug('updateStudent() - SQL : ' + $sql);
 
     $ExecResult = false;
 
     try
     {
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        //$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $statement = $pdo->prepare($sql);
         $statement->bindParam(":regnNo", $RegnNo);
         $statement->bindParam(":modeId", $ModeId);
@@ -644,13 +436,10 @@ class UserDAO extends BaseDAO
         $statement->bindParam(":aadhaarNo", $AadhaarNo);
         $statement->bindParam(":fathersName", $FathersName);
         $statement->bindParam(":mothersName", $MothersName);
-        $statement->bindParam(":religionId", $ReligionId);
-        $statement->bindParam(":communityId", $CommunityId);
         $statement->bindParam(":email", $Email);
         $statement->bindParam(":mobile", $Mobile);
         $statement->bindParam(":address", $Address);
         $statement->bindParam(":modifiedBy", $modifiedBy);
-        $statement->bindParam(":isActive", $IsActive);
         //$statement->bindParam(":userId", $Id, PDO::PARAM_INT);
         $statement->bindParam(":userId", $UserId);
 
@@ -659,21 +448,11 @@ class UserDAO extends BaseDAO
 
         echo "<b>RowCount : </b> " . $count . "<br/>";
         $this->log->debug('updateStudent() - RowCount : ' + $count);
-
-        $errorCode= $statement->errorCode();
-        $errorInfoArray = $statement->errorInfo();
-
-        //echo "<b>RowCount : </b> " . $count . "<br/>";
-        $this->log->debug('updateStudent() - ExecResult : ' . $ExecResult);
-        $this->log->debug('updateStudent() - RowCount : ' . $count);
-        $this->log->debug('updateStudent() - errorCode : ' . $errorCode);
-        $this->log->debug('updateStudent() - errorInfoArray : ' . print_r($errorInfoArray, 1));
       }
       catch(PDOException $e)
       {
         //[TODO] Proper way of error handling.
           echo 'ERROR: ' . $e->getMessage();
-          $this->log->error('ERROR : ' . $e->getMessage());
       }
 
       /*if($ExecResult) {
@@ -795,25 +574,57 @@ class UserDAO extends BaseDAO
       try
       {
           $query = $pdo->prepare($sql);
+
           $query->bindParam(":Id", $Id);
+
           $query->execute();
 
           while($row = $query->fetch())
           {
+              /*echo "Row valid! ......................<br/>";
+              print_r($row);
+              echo "<br/>";*/
+
+              //$isValid=true;
+              //$userIdFromDB = $row['Name'];
+
               $userBO = new TblUserBO;
+              /*echo "userBo just instantiated.....<br/>";
+              var_dump($userBO);
+              echo "<br/>";
+              print_r($userBO);
+              echo "<br/>";*/
+
               $userBO->copyFromResultSet($row);
+              /*echo "userBo copied over from the row object.....<br/>";
+              var_dump($userBO);
+              echo "<br/>";
+              print_r($userBO);
+              echo "<br/>";*/
           }
 
           //$row = $query->fetch();
+
           $userBO = new TblUserBO;
+          /*echo "userBo just instantiated.....<br/>";
+          var_dump($userBO);
+          echo "<br/>";
+          print_r($userBO);
+          echo "<br/>";*/
+
           $userBO->copyFromResultSet($row);
+          /*echo "userBo copied over from the row object.....<br/>";
+          var_dump($userBO);
+          echo "<br/>";
+          print_r($userBO);
+          echo "<br/>";*/
+
           //$pdo = null;
       }
       catch(PDOException $e)
       {
         //[TODO] Proper way of error handling.
           echo 'ERROR: ' . $e->getMessage();
-          $this->log->error('ERROR : ' . $e->getMessage());
       }
 
       return $userBO;
@@ -865,125 +676,122 @@ class UserDAO extends BaseDAO
       return $tblUserBOArray;
   }
 
-  function deleteStudent($UserId)
-  {
-    $this->log->debug('deleteStudent() - UserId (Param) : [' . $UserId . ']');
+	/**
+	 * <p>
+	 *		A method to update the member details.
+	 * </p>
+	 * <p>
+	 *		Added for the <tt>SBI-1</tt> (https://shadeteam.atlassian.net/browse/SBI-1)
+	 * </p>
+	 */
+	function update($tblMemberBO)
+	{
+		global $pdo;
 
-    //echo "deleteStudent() - UserId : " . $Id . "<br/>";
+		//echo '<pre>', var_dump($tblMemberBO), '</pre>';
 
-    global $pdo;
+		$sql = "UPDATE TblMember
+						SET Name=:Name,
+								EmailId1=:EmailId1,
+								EmailId2=:EmailId2,
+								PhoneNo1=:PhoneNo1,
+								PhoneNo2=:PhoneNo2,
+								Company=:Company,
+								Branch=:Branch,
+								City=:City,
+								Country=:Country,
+								DateOfJoin=:DateOfJoin,
+								IsContributor=:IsContributor,
+								IsVolunteer=:IsVolunteer,
+								IsActive=:IsActive,
+								AddToGroups=:AddToGroups,
+								Remarks=:Remarks,
+								MODIFIED_BY=:ModifiedBy
+						WHERE
+								Id=:Id
+					 ";
 
-      //$sql = "DELETE FROM TblStudent WHERE UserId=:userId";
-      //$sql = "DELETE FROM TblStudent WHERE RegnNo='912518106010'";
-      //$sql = "DELETE FROM TblStudent WHERE RegnNo=:userId";
-      $sql = "UPDATE TblStudent SET `IS_ACTIVE`='N', `MODIFIED_BY`=:modifiedBy WHERE RegnNo=:userId";
+		//echo "<b>DEBUG : </b> SQL : <i>" . $sql . "</i><br/>";
 
-      $this->log->debug('deleteStudent() - SQL : [' . $sql . "]");
+		$Id = $tblMemberBO->getId();
+		$Name = $tblMemberBO->getName();
+		$UserId = $tblMemberBO->getUserId();
+		$EmailId1 = $tblMemberBO->getEmailId1();
+		$EmailId2 = $tblMemberBO->getEmailId2();
+		$PhoneNo1 = $tblMemberBO->getPhoneNo1();
+		$PhoneNo2 = $tblMemberBO->getPhoneNo2();
+		$Company = $tblMemberBO->getCompany();
+		$Branch = $tblMemberBO->getBranch();
+		$City = $tblMemberBO->getCity();
+		$Country = $tblMemberBO->getCountry();
+		$DateOfJoin = $tblMemberBO->getDateOfJoin();
+		$IsContributor = $tblMemberBO->getIsContributor();
+		$IsVolunteer = $tblMemberBO->getIsVolunteer();
+		$IsActive = $tblMemberBO->getIsActive();
+		$AddToGroups = $tblMemberBO->getAddToGroups();
+		$Remarks = $tblMemberBO->getRemarks();
 
-    /*echo "<br/>";
-    echo "<b>SQL Query :: </b> " . $sql . "<br/>";
-    echo "<br/>";*/
+		try
+		{
+			$query = $pdo->prepare($sql);
 
-    $ExecResult = false;
+			//Not required because we use PreparedStatement bind() method. However sanitize() uses other cleaning as well.
+			$Id - $this->sanitize($Id);
+			$Name = $this->sanitize($Name);
+			$UserId = $this->sanitize($UserId);
+			$EmailId1 = $this->sanitize($EmailId1);
+			$EmailId2 = $this->sanitize($EmailId2);
+			$PhoneNo1 = $this->sanitize($PhoneNo1);
+			$PhoneNo2 = $this->sanitize($PhoneNo2);
+			$Company = $this->sanitize($Company);
+			$Branch = $this->sanitize($Branch);
+			$City = $this->sanitize($City);
+			$Country = $this->sanitize($Country);
+			$DateOfJoin = $this->sanitize($DateOfJoin);
+			$IsContributor = $this->sanitize($IsContributor);
+			$IsVolunteer = $this->sanitize($IsVolunteer);
+			$IsActive = $this->sanitize($IsActive);
+			$AddToGroups = $this->sanitize($AddToGroups);
+			$Remarks = $this->sanitize($Remarks);
 
-    $modifiedBy = isset($_SESSION['user']) ? $_SESSION['user'] : '';
-    $this->log->debug('deleteStudent() - modifiedBy : ' . $modifiedBy);
+			$query->bindParam(":Id", $Id);
+			$query->bindParam(":Name", $Name);
 
-    try
-    {
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $statement = $pdo->prepare($sql);
+			/* Not used in the UPDATE Clause so not binding it. Otherwise, it will throw
+			 SQLSTATE[HY093]: Invalid parameter number: parameter was not defined */
+			//$query->bindParam(":UserId", $UserId);
 
-        $statement->bindParam(":userId", $UserId);
-        $statement->bindParam(":modifiedBy", $modifiedBy);
+			$query->bindParam(":EmailId1", $EmailId1);
+			$query->bindParam(":EmailId2", $EmailId2);
+			$query->bindParam(":PhoneNo1", $PhoneNo1);
+			$query->bindParam(":PhoneNo2", $PhoneNo2);
+			$query->bindParam(":Company", $Company);
+			$query->bindParam(":Branch", $Branch);
+			$query->bindParam(":City", $City);
+			$query->bindParam(":Country", $Country);
+			$query->bindParam(":DateOfJoin", $DateOfJoin);
+			$query->bindParam(":IsContributor", $IsContributor);
+			$query->bindParam(":IsVolunteer", $IsVolunteer);
+			$query->bindParam(":IsActive", $IsActive);
+			$query->bindParam(":AddToGroups", $AddToGroups);
+			$query->bindParam(":Remarks", $Remarks);
+			$query->bindParam(":ModifiedBy", $UserId);
 
-        $ExecResult = $statement->execute();
-        $count = $statement->rowCount();
+			/*echo "Name : " . $Name;
+			echo "<br/>";
+			echo "BeneficiaryId : " . $BeneficiaryId;
+			echo "<br/>";
+			echo "DateEntered : " . $DateEntered;
+			echo "<br/>";*/
 
-        $errorCode= $statement->errorCode();
-        $errorInfoArray = $statement->errorInfo();
+			$query->execute();
 
-        //echo "<b>RowCount : </b> " . $count . "<br/>";
-        $this->log->debug('deleteStudent() - ExecResult : ' . $ExecResult);
-        $this->log->debug('deleteStudent() - RowCount : ' . $count);
-        $this->log->debug('deleteStudent() - errorCode : ' . $errorCode);
-        $this->log->debug('deleteStudent() - errorInfoArray : ' . print_r($errorInfoArray, 1));
-      }
-      catch(PDOException $e)
-      {
-        //[TODO] Proper way of error handling.
-          echo 'ERROR: ' . $e->getMessage();
-          $this->log->error('ERROR : ' . $e->getMessage());
-      }
-
-      /*if($ExecResult) {
-        echo "<br/><i>Deleted the Record from TblStudent...</i> <br/>";
-      } else {
-        echo "<br/><font color=red><i>Failed to delete a record from TblStudent...</i></font> <br/>";
-      }*/
-
-      return $count;
-  }
-
-
-  function deleteUser($UserId)
-  {
-    $this->log->debug('deleteUser() - UserId (Param) : [' . $UserId . ']');
-
-    //echo "deleteStudent() - UserId : " . $Id . "<br/>";
-
-    global $pdo;
-
-    $modifiedBy = isset($_SESSION['user']) ? $_SESSION['user'] : '';
-    $this->log->debug('deleteUser() - modifiedBy : ' . $modifiedBy);
-
-      //$sql = "DELETE FROM TblStudent WHERE UserId=:userId";
-      //$sql = "DELETE FROM TblStudent WHERE RegnNo='912518106010'";
-      //$sql = "DELETE FROM TblUser WHERE UserId=:userId";
-      $sql = "UPDATE TblUser SET `IS_ACTIVE`='N', `MODIFIED_BY`=:modifiedBy WHERE UserId=:userId";
-
-      $this->log->debug('deleteUser() - SQL : [' . $sql . "]");
-
-    /*echo "<br/>";
-    echo "<b>SQL Query :: </b> " . $sql . "<br/>";
-    echo "<br/>";*/
-
-    $ExecResult = false;
-
-    try
-    {
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $statement = $pdo->prepare($sql);
-
-        $statement->bindParam(":userId", $UserId);
-        $statement->bindParam(":modifiedBy", $modifiedBy);
-
-        $ExecResult = $statement->execute();
-        $count = $statement->rowCount();
-
-        $errorCode= $statement->errorCode();
-        $errorInfoArray = $statement->errorInfo();
-
-        //echo "<b>RowCount : </b> " . $count . "<br/>";
-        $this->log->debug('deleteUser() - ExecResult : ' . $ExecResult);
-        $this->log->debug('deleteUser() - RowCount : ' . $count);
-        $this->log->debug('deleteUser() - errorCode : ' . $errorCode);
-        $this->log->debug('deleteUser() - errorInfoArray : ' . print_r($errorInfoArray, 1));
-      }
-      catch(PDOException $e)
-      {
-        //[TODO] Proper way of error handling.
-          echo 'ERROR: ' . $e->getMessage();
-          $this->log->error('ERROR : ' . $e->getMessage());
-      }
-
-      /*if($ExecResult) {
-        echo "<br/><i>Deleted the Record from TblStudent...</i> <br/>";
-      } else {
-        echo "<br/><font color=red><i>Failed to delete a record from TblStudent...</i></font> <br/>";
-      }*/
-
-      return $count;
-  }
+				//$pdo = null;
+		}
+		catch(PDOException $e)
+		{
+			echo 'ERROR: ' . $e->getMessage();
+		}
+	}
 }
 ?>

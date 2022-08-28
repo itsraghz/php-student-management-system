@@ -93,15 +93,47 @@ VALUES
 SELECT "... Successfully inserted the sample values into the table [TblUserRole]  ...." AS "DEBUG_MSG" FROM DUAL;
 --
 -- =============================================================
+--   INSERT DATA into TblReligion
+-- =============================================================
+
+INSERT INTO TblReligion
+  (Name)
+VALUES
+  ("Hindu"),
+	("Muslim"),
+	("Christian"),
+	("Jain"),
+	("Sikh");
+--
+SELECT "... Successfully inserted the sample values into the table [TblReligion]  ...." AS "DEBUG_MSG" FROM DUAL;
+--
+--
+-- =============================================================
+--   INSERT DATA into TblCommunity
+-- =============================================================
+
+INSERT INTO TblCommunity
+  (Name)
+VALUES
+  ("Chettiyar"),
+	("Mudlaiyar"),
+	("Nadar"),
+	("Thevar"),
+	("Vallambar"),
+	("Ambalam");
+--
+SELECT "... Successfully inserted the sample values into the table [TblCommunity]  ...." AS "DEBUG_MSG" FROM DUAL;
+--
+-- =============================================================
 --   INSERT DATA into TblStudent
 -- =============================================================
 INSERT INTO TblStudent
-  (UserId, RegnNo, Name, DOB, Gender, Department, Year, AadhaarNo, FathersName, MothersName, Email, Mobile, Address)
+  (UserId, RegnNo, Name, DOB, Gender, DeptId, Year, AadhaarNo, FathersName, MothersName, ReligionId, CommunityId, Email, Mobile, Address)
 VALUES
-  (8, '2018-BE-ECE-123', 'Ram', '2001-01-06', 'M', 'B.E (ECE)', 4, '1234567890', 'Shanmugam', 'Parvathi', 'user1@example.com', '123456789', 'Flat 2B, Prime Rose Apartments, Karaikudi'),
-  (9, '2018-BE-ECE-124', 'Raja', '2001-06-28', 'M', 'B.E (ECE)', 4, '2345678901', 'Manickam', 'Muthazhagu', 'user2@example.com', '234567891', "224, Indra Nagar, Madurai"),
-  (10, '2018-BE-ECE-125', 'Priya', '2001-03-30', 'F', 'B.E (ECE)', 4, '3456789012','Vijayakumar','Muthuselvi','user3@example.com','345678912',"#12, Sivan Sannadhi, Karaikudi"),
-  (11, '2018-BE-ECE-126', 'Gayathri', '2001-04-17', 'F', 'B.E (ECE)', 4, '3456789012', 'Kamaraj','Chellammal','user4@example.com','456789123',"5, Pillaiyar Kovil Street, Yembal, Pudukkottai District");
+  (8, '2018-BE-ECE-123', 'Ram', '2001-01-06', 'M', 1, 4, '1234567890', 'Shanmugam', 'Parvathi', 1, 1, 'user1@example.com', '123456789', 'Flat 2B, Prime Rose Apartments, Karaikudi'),
+  (9, '2018-BE-ECE-124', 'Raja', '2001-06-28', 'M', 1, 4, '2345678901', 'Manickam', 'Muthazhagu', 1, 2, 'user2@example.com', '234567891', "224, Indra Nagar, Madurai"),
+  (10, '2018-BE-ECE-125', 'Priya', '2001-03-30', 'F', 1, 4, '3456789012','Vijayakumar','Muthuselvi', 1, 3, 'user3@example.com','345678912',"#12, Sivan Sannadhi, Karaikudi"),
+  (11, '2018-BE-ECE-126', 'Gayathri', '2001-04-17', 'F', 1, 4, '3456789012', 'Kamaraj','Chellammal', 1, 4, 'user4@example.com','456789123',"5, Pillaiyar Kovil Street, Yembal, Pudukkottai District");
 --
 SELECT * from TblDepartment;
 
