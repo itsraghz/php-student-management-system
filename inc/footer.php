@@ -25,5 +25,8 @@
         <span class='versionInfo'>&nbsp;|&nbsp; <?php echo VERSION_INFO; ?></span>
       </div>
     </div>
+    <?php		
+      ob_end_flush();
+    ?>
   </body>
 </html>
